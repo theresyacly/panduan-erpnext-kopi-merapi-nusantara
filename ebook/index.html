@@ -1,0 +1,540 @@
+<!doctype html><html lang="id"><head><meta charset="utf-8">
+<title>Panduan Praktis ERPNext | Theresya Chesilya</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>/* Bauhaus (sampul & pembuka bab) + Technical Manual (halaman isi) */
+:root{
+  --ink:#141414; --ink2:#3d3d3d; --muted:#6e6e6e; --rule:#d9d9d9; --paper:#ffffff; --cream:#f3efe6;
+  --red:#d62f2f; --blue:#1d4f9c; --yellow:#f2b705;
+}
+@page{
+  size:A4; margin:20mm 0 20mm 0; background:#fff;
+  @top-left{content:"PANDUAN PRAKTIS ERPNEXT"; font:600 7pt 'IBM Plex Mono',monospace; letter-spacing:.12em; color:#141414; vertical-align:bottom; padding-bottom:5mm; padding-left:24mm}
+  @top-right{content:"STUDI KASUS PT KOPI MERAPI NUSANTARA"; font:500 7pt 'IBM Plex Mono',monospace; letter-spacing:.08em; color:#8a8a8a; vertical-align:bottom; padding-bottom:5mm; padding-right:18mm}
+  @bottom-left{content:counter(page); font:700 9pt 'Jost',sans-serif; color:#fff; background:#141414; width:9mm; height:6mm; text-align:center; vertical-align:middle; margin-top:5mm; margin-left:24mm}
+  @bottom-right{content:"Theresya Chesilya & Totok Dewayanto"; font:400 7pt 'IBM Plex Mono',monospace; color:#8a8a8a; vertical-align:top; padding-top:6mm; padding-right:18mm}
+}
+@page cover{margin:0; background:var(--cream);
+  @top-left{content:none} @top-right{content:none} @bottom-left{content:none} @bottom-right{content:none}}
+@page front{@top-left{content:none} @top-right{content:none}}
+
+*{box-sizing:border-box}
+html{font-size:10pt}
+body{margin:0; font-family:'Inter',system-ui,sans-serif; color:var(--ink); line-height:1.62; background:#fff;
+  -webkit-print-color-adjust:exact; print-color-adjust:exact; font-feature-settings:"tnum" 1}
+p{margin:0 0 .8em; text-align:justify; text-justify:inter-word; hyphens:auto}
+/* body text rata kanan-kiri (permintaan klien); elemen yang tidak cocok tetap rata kiri */
+ol.steps li,ul.def li,ul.check li,.note p{text-align:justify; text-justify:inter-word; hyphens:auto}
+td p,th p,figcaption p,.cover p,.tocbox p,p.ref{text-align:left}
+i{font-style:italic; color:inherit}
+code,kbd{font-family:'IBM Plex Mono',monospace; font-size:.86em}
+code{background:#f2f2f2; padding:.05em .35em; border-radius:2px}
+kbd{border:1px solid #141414; border-bottom-width:2px; padding:0 .35em; border-radius:2px; background:#fff}
+/* nama menu/tombol ERPNext = tombol UI */
+.chapter p b, .chapter ol.steps li b, .chapter .note p b, .chapter td b.ui{
+  font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:.84em; letter-spacing:-.01em;
+  border:1px solid #141414; padding:.02em .38em; border-radius:2px; background:#fff; -webkit-box-decoration-break:clone; box-decoration-break:clone}
+.chapter ul.def li b, .chapter td b{font-family:inherit; font-size:inherit; border:none; padding:0; background:none; white-space:normal}
+
+/* netralkan sisa kelas lama */
+.glass,.glass-dark{background:none; border:none; box-shadow:none; border-radius:0}
+.glass::before{content:none}
+
+/* ---------- SAMPUL BAUHAUS ---------- */
+.cover{page:cover; position:relative; width:210mm; height:297mm; overflow:hidden; background:var(--cream); break-after:page}
+.bh{position:absolute}
+.bh-circle{width:118mm; height:118mm; border-radius:50%; background:var(--red); right:-26mm; top:-22mm}
+.bh-ring{width:58mm; height:58mm; border-radius:50%; border:9mm solid var(--ink); right:52mm; top:62mm; background:var(--yellow)}
+.bh-square{width:74mm; height:74mm; background:var(--blue); left:0; bottom:58mm}
+.bh-tri{width:0; height:0; border-left:44mm solid transparent; border-right:44mm solid transparent; border-bottom:76mm solid var(--yellow);
+  right:14mm; top:120mm}
+.bh-bar{left:0; right:0; bottom:46mm; height:4mm; background:var(--ink)}
+.bh-bar2{left:74mm; top:118mm; width:4mm; height:65mm; background:var(--ink)}
+.cv-label{position:absolute; left:18mm; top:16mm; font:600 7.5pt 'IBM Plex Mono'; letter-spacing:.14em; color:var(--ink)}
+.cv-main{position:absolute; left:18mm; top:40mm; width:120mm}
+.cv-kicker{font:600 8pt 'IBM Plex Mono'; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); margin-bottom:5mm}
+.cover h1{font:800 46pt/0.95 'Jost',sans-serif; letter-spacing:-.02em; margin:0; color:var(--ink); text-transform:uppercase}
+.cover h1 span{color:var(--red)}
+.cv-sub{position:relative; font:500 11.5pt/1.35 'Inter'; margin-top:7mm; width:105mm; color:var(--ink);
+  background:var(--cream); padding:2mm 3mm 2mm 0}
+.cv-case{display:inline-block; margin-top:4mm; font:600 8.5pt 'IBM Plex Mono'; color:#fff; background:var(--ink); padding:2mm 3.5mm}
+.cv-authors{position:absolute; left:84mm; top:186mm; width:105mm; display:flex; flex-direction:column; gap:4mm;
+  background:var(--cream); padding:3mm 4mm}
+.au small{display:block; font:600 7pt 'IBM Plex Mono'; letter-spacing:.12em; text-transform:uppercase; color:var(--red)}
+.au b{display:block; font:700 12pt/1.25 'Jost'; margin:.5mm 0}
+.au span{font:400 8pt 'Inter'; color:var(--ink2)}
+.cv-foot{position:absolute; left:18mm; right:18mm; bottom:20mm; font:600 7.5pt 'IBM Plex Mono'; letter-spacing:.06em; color:var(--ink);
+  text-transform:uppercase}
+
+/* ---------- HALAMAN DEPAN ---------- */
+.front{page:front; break-after:page; padding:0 18mm 0 24mm}
+.front-head{border-top:4mm solid var(--ink); padding-top:5mm; margin:0 0 9mm; display:flex; align-items:baseline; gap:6mm}
+.eyebrow{font:600 7.5pt 'IBM Plex Mono'; letter-spacing:.14em; text-transform:uppercase; color:var(--red)}
+.fh{font:800 26pt/1 'Jost'; margin:0; text-transform:uppercase; letter-spacing:-.01em}
+.sign{margin-top:12mm; display:flex; flex-direction:column; align-items:flex-end; gap:14mm}
+.sign b{font:700 11pt 'Jost'}
+.tocbox{padding:0}
+.toc-row{display:flex; align-items:baseline; gap:6px; padding:1.2mm 0}
+.toc-row .dots{flex:1; border-bottom:1px dotted #9a9a9a; transform:translateY(-3px)}
+.toc-row .p{font:600 9pt 'IBM Plex Mono'; min-width:7mm; text-align:right}
+.toc-row.l0 .t,.toc-row.l1 .t{font:700 10.5pt 'Jost'; text-transform:uppercase; letter-spacing:.01em}
+.toc-row.l1{margin-top:3mm; border-top:1px solid var(--ink); padding-top:2mm}
+.toc-row.l2{padding-left:9mm; color:var(--ink2); font-size:9pt}
+
+/* ---------- PEMBUKA BAB BAUHAUS ---------- */
+.chapter{page:bab; break-before:page; padding:0 18mm 0 24mm}
+.ch-head{position:relative; height:66mm; margin:0 0 10mm; border-bottom:4mm solid var(--ink); overflow:hidden; background:var(--cream)}
+.ch-head .shp{position:absolute}
+.ch-head .ch-num{position:absolute; left:6mm; top:2mm; font:800 64pt/1 'Jost'; color:var(--ink); letter-spacing:-.03em}
+.ch-head .ch-t{position:absolute; left:6mm; bottom:6mm; right:58mm; background:var(--cream); padding:2mm 3mm 1mm 0}
+.ch-head h1{font:800 20pt/1.08 'Jost'; text-transform:uppercase; margin:1.5mm 0 0; letter-spacing:-.005em}
+/* tiga variasi komposisi, berganti per bab */
+.v1 .s1{width:52mm; height:52mm; border-radius:50%; background:var(--red); right:8mm; top:-12mm}
+.v1 .s2{width:30mm; height:30mm; background:var(--blue); right:44mm; bottom:0}
+.v1 .s3{width:3mm; height:66mm; background:var(--ink); right:40mm; top:0}
+.v2 .s1{width:56mm; height:56mm; background:var(--blue); right:0; top:0}
+.v2 .s2{width:34mm; height:34mm; border-radius:50%; background:var(--yellow); right:36mm; bottom:4mm}
+.v2 .s3{width:0; height:0; border-left:16mm solid transparent; border-right:16mm solid transparent; border-bottom:28mm solid var(--red); right:6mm; bottom:0}
+.v0 .s1{width:0; height:0; border-left:32mm solid transparent; border-right:32mm solid transparent; border-bottom:58mm solid var(--yellow); right:4mm; bottom:0}
+.v0 .s2{width:28mm; height:28mm; border-radius:50%; background:var(--red); right:46mm; top:6mm}
+.v0 .s3{width:66mm; height:3mm; background:var(--ink); right:0; top:20mm}
+
+/* ---------- ISI TECHNICAL MANUAL ---------- */
+h2{font:700 13pt/1.25 'Jost'; text-transform:uppercase; letter-spacing:.005em; margin:9mm 0 3.5mm; padding-top:2.5mm;
+  border-top:1.5px solid var(--ink); break-after:avoid}
+h2::before{content:none}
+.lead{font-size:10.6pt; color:var(--ink2); border-left:3mm solid var(--yellow); padding-left:4mm}
+
+.fig{margin:4mm 0 6mm; break-inside:avoid}
+.fig .frame{padding:0; border:1px solid var(--ink)}
+.fig img{width:100%; display:block}
+figcaption{font:400 8pt/1.4 'Inter'; color:var(--ink2); margin-top:2mm; text-align:left}
+figcaption span,.tcap span{font:600 7.5pt 'IBM Plex Mono'; letter-spacing:.06em; text-transform:uppercase; color:#fff; background:var(--ink);
+  padding:.4mm 1.6mm; margin-right:1.5mm}
+.fig.small:not(.grid2 .fig){width:62%}
+.grid2{display:grid; grid-template-columns:1fr 1fr; gap:6mm; align-items:start; break-inside:avoid}
+.grid2 .fig{margin:2mm 0 3mm}
+
+.tblwrap{margin:4mm 0 6mm}
+.tcap{font:400 8.5pt 'Inter'; color:var(--ink2); margin-bottom:2mm; break-after:avoid}
+.tbl{padding:0}
+table{width:100%; border-collapse:collapse; font-size:8.8pt; line-height:1.45; border-top:2px solid var(--ink); border-bottom:2px solid var(--ink)}
+thead{display:table-header-group}
+tr{break-inside:avoid}
+th{text-align:left; font:600 7.5pt 'IBM Plex Mono'; letter-spacing:.06em; text-transform:uppercase; padding:2.4mm 2.5mm;
+  border-bottom:1px solid var(--ink); background:#f4f4f4}
+td{padding:2mm 2.5mm; border-bottom:1px solid var(--rule); vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+
+/* kotak peringatan ala manual mesin */
+.note{display:block; border:1.5px solid var(--ink); padding:0 4mm 3.5mm; margin:5mm 0 6mm; break-inside:avoid}
+.note .ico{display:none}
+.note::before{display:inline-block; font:700 7.5pt 'IBM Plex Mono'; letter-spacing:.14em; padding:1.2mm 3mm; margin:0 0 2.5mm -4mm;
+  color:#fff; background:var(--blue); content:"CATATAN"}
+.note.warn::before{content:"PERHATIAN"; background:var(--yellow); color:var(--ink)}
+.note.danger::before{content:"BAHAYA"; background:var(--red)}
+.note .nt{display:block; font:700 10pt 'Jost'; margin-bottom:1mm}
+.note p{margin:0; font-size:9.2pt}
+
+pre.code{margin:3mm 0 5mm; padding:3.5mm 4.5mm; font-size:8.6pt; line-height:1.6; white-space:pre-wrap;
+  background:var(--ink); color:#fff; border-left:3mm solid var(--yellow)}
+pre.code code{background:none; padding:0; color:inherit}
+
+/* langkah bernomor besar di margin */
+ol.steps{counter-reset:s; list-style:none; padding:0; margin:3mm 0 4mm}
+ol.steps[start="3"]{counter-reset:s 2}
+ol.steps li{counter-increment:s; position:relative; padding-left:12mm; margin-bottom:3mm; min-height:8mm}
+ol.steps li::before{content:counter(s,decimal-leading-zero); position:absolute; left:0; top:0; width:8.5mm; height:8.5mm;
+  font:700 10pt/8.5mm 'Jost'; text-align:center; color:#fff; background:var(--ink)}
+ul.def,ul.check{list-style:none; padding:0; margin:2mm 0 5mm}
+ul.def li,ul.check li{position:relative; padding-left:7mm; margin-bottom:2.2mm}
+ul.def li::before{content:""; position:absolute; left:0; top:.5em; width:2.6mm; height:2.6mm; background:var(--red)}
+ul.check li::before{content:""; position:absolute; left:0; top:.35em; width:3.4mm; height:3.4mm; border:1.5px solid var(--ink)}
+
+/* skema alur */
+.skema{display:flex; flex-direction:column; gap:3mm; margin:4mm 0 6mm; break-inside:avoid}
+.lane{display:flex; align-items:center; gap:4mm; padding:3mm 0; border-bottom:1px solid var(--rule)}
+.ln{flex:0 0 36mm; white-space:nowrap; font:700 9pt 'Jost'; text-transform:uppercase}
+.ln b{display:inline-block; width:6.5mm; height:6.5mm; line-height:6.5mm; text-align:center; margin-right:2mm; font-size:8pt; color:#fff; background:var(--ink)}
+.lane:nth-child(3n+1) .ln b{background:var(--red)} .lane:nth-child(3n+2) .ln b{background:var(--blue)} .lane:nth-child(3n) .ln b{background:var(--yellow); color:var(--ink)}
+.flow{display:flex; flex-wrap:wrap; align-items:center; gap:1.5mm}
+.chip{font:500 7.8pt 'IBM Plex Mono'; padding:1.6mm 2.6mm; border:1px solid var(--ink); background:#fff}
+.arr{font-weight:700}
+.skema-note{font-size:8.4pt; color:var(--ink2)}
+
+/* penutup */
+.refs{padding:0}
+.ref{padding-left:9mm; text-indent:-9mm; font-size:9pt; margin-bottom:2.4mm; word-break:break-word}
+.authors2{display:grid; grid-template-columns:1fr 1fr; gap:6mm}
+.au2{border-top:3mm solid var(--ink); padding-top:3mm}
+.au2 b{display:block; font:700 11pt/1.3 'Jost'; margin-bottom:1.5mm}
+.au2 span{font-size:8.8pt; color:var(--ink2)}
+
+@media screen{
+  body{max-width:860px; margin:0 auto; padding:24px 0 80px}
+  .cover{width:100%; height:1200px; margin-bottom:40px}
+  .chapter,.front{margin-top:60px}
+}
+</style></head><body>
+
+<section class="cover">
+  <div class="bh bh-circle"></div><div class="bh bh-ring"></div>
+  <div class="bh bh-square"></div><div class="bh bh-tri"></div>
+  <div class="bh bh-bar"></div><div class="bh bh-bar2"></div>
+  <div class="cv-label">E-BOOK &nbsp;/&nbsp; ENTERPRISE RESOURCE PLANNING &nbsp;/&nbsp; 2026</div>
+  <div class="cv-main">
+    <div class="cv-kicker">ERPNext v16 &middot; Manufaktur &middot; Akuntansi</div>
+    <h1>Panduan<br>Praktis<br><span>ERPNext</span></h1>
+    <div class="cv-sub">Akuntansi Manufaktur dari Instalasi hingga Laporan Keuangan</div>
+    <div class="cv-case">Studi Kasus PT Kopi Merapi Nusantara</div>
+  </div>
+  <div class="cv-authors">
+    <div class="au"><small>01 &nbsp;Penulis Pertama</small><b>Theresya Chesilya</b><span>NIM 12030122130157</span></div>
+    <div class="au"><small>02 &nbsp;Penulis Kedua</small><b>Dr. Totok Dewayanto, S.E., M.Si., Akt., CA.</b><span>Dosen Pengampu Mata Kuliah ERP</span></div>
+  </div>
+  <div class="cv-foot">Program Studi Akuntansi &middot; Fakultas Ekonomika dan Bisnis &middot; Universitas Diponegoro</div>
+</section>
+
+<section class="front">
+<div class="front-head"><span class="eyebrow">Pengantar</span><h1 class="fh">Kata Pengantar</h1></div>
+<p>Puji syukur penulis panjatkan ke hadirat Tuhan Yang Maha Esa atas rahmat-Nya sehingga e-book <i>Panduan Praktis ERPNext: Akuntansi Manufaktur dari Instalasi hingga Laporan Keuangan</i> ini dapat diselesaikan. E-book ini disusun sebagai pengganti Ujian Tengah Semester mata kuliah Enterprise Resource Planning dan melengkapi materi presentasi mengenai fitur-fitur ERPNext di kelas.</p>
+<p>Akuntan masa kini dituntut bukan hanya memahami pencatatan, melainkan juga mampu mengoperasikan sistem yang menghubungkan pembelian, persediaan, produksi, penjualan, dan pelaporan dalam satu basis data. ERPNext dipilih karena bersifat sumber terbuka, bebas biaya lisensi, dan modul manufakturnya cukup lengkap untuk dipelajari sendiri di komputer pribadi.</p>
+<p>Isi buku disusun berurutan, mulai dari instalasi ERPNext dengan Docker, pengaturan awal perusahaan, penyusunan Chart of Accounts manufaktur, entry data master, hingga pengerjaan studi kasus PT Kopi Merapi Nusantara, sebuah usaha pengolahan kopi bubuk kemasan. Seluruh langkah sudah dipraktikkan langsung pada ERPNext versi 16, dan setiap tangkapan layar diambil dari hasil pengerjaan tersebut, sehingga pembaca dapat mencocokkan angka di layarnya dengan angka di buku.</p>
+<p>Penulis mengucapkan terima kasih kepada Dr. Totok Dewayanto, S.E., M.Si., Akt., CA. selaku dosen pengampu atas bimbingan dan arahannya, serta kepada teman-teman kelas ERP yang telah berbagi pengalaman selama praktik. Kritik dan saran sangat penulis harapkan untuk penyempurnaan e-book ini.</p>
+<div class="sign"><span>Semarang, Oktober 2026</span><b>Theresya Chesilya</b></div>
+</section>
+
+<section class="front toc">
+<div class="front-head"><span class="eyebrow">Isi Buku</span><h1 class="fh">Daftar Isi</h1></div>
+<div class="glass tocbox"><div class="toc-row l0"><span class="t">Kata Pengantar</span><span class="dots"></span><span class="p">3</span></div><div class="toc-row l1"><span class="t">Bab 1 Mengenal ERP dan ERPNext</span><span class="dots"></span><span class="p">5</span></div><div class="toc-row l2"><span class="t">1.1 Pencatatan yang Terpisah Itu Mahal</span><span class="dots"></span><span class="p">5</span></div><div class="toc-row l2"><span class="t">1.2 Apa Itu ERP</span><span class="dots"></span><span class="p">5</span></div><div class="toc-row l2"><span class="t">1.3 Mengenal ERPNext</span><span class="dots"></span><span class="p">6</span></div><div class="toc-row l2"><span class="t">1.4 Istilah yang Perlu Dikuasai</span><span class="dots"></span><span class="p">6</span></div><div class="toc-row l1"><span class="t">Bab 2 Instalasi ERPNext dengan Docker</span><span class="dots"></span><span class="p">8</span></div><div class="toc-row l2"><span class="t">2.1 Mengapa Docker</span><span class="dots"></span><span class="p">8</span></div><div class="toc-row l2"><span class="t">2.2 Menyiapkan WSL 2 dan Docker Desktop</span><span class="dots"></span><span class="p">8</span></div><div class="toc-row l2"><span class="t">2.3 Mengunduh dan Menjalankan ERPNext</span><span class="dots"></span><span class="p">9</span></div><div class="toc-row l2"><span class="t">2.4 Login Pertama</span><span class="dots"></span><span class="p">9</span></div><div class="toc-row l2"><span class="t">2.5 Mengelola ERPNext Sehari-hari</span><span class="dots"></span><span class="p">10</span></div><div class="toc-row l1"><span class="t">Bab 3 Pengaturan Awal Perusahaan</span><span class="dots"></span><span class="p">11</span></div><div class="toc-row l2"><span class="t">3.1 Setup Wizard Empat Langkah</span><span class="dots"></span><span class="p">11</span></div><div class="toc-row l2"><span class="t">3.2 Mengenal Tampilan Desk</span><span class="dots"></span><span class="p">14</span></div><div class="toc-row l2"><span class="t">3.3 Gudang untuk Tiga Jenis Persediaan</span><span class="dots"></span><span class="p">14</span></div><div class="toc-row l2"><span class="t">3.4 Pengaturan Stok dan Manufaktur</span><span class="dots"></span><span class="p">15</span></div><div class="toc-row l1"><span class="t">Bab 4 Chart of Accounts Manufaktur</span><span class="dots"></span><span class="p">17</span></div><div class="toc-row l2"><span class="t">4.1 Konsep Bagan Akun</span><span class="dots"></span><span class="p">17</span></div><div class="toc-row l2"><span class="t">4.2 Menyiapkan Berkas COA</span><span class="dots"></span><span class="p">18</span></div><div class="toc-row l2"><span class="t">4.3 Mengimpor COA</span><span class="dots"></span><span class="p">19</span></div><div class="toc-row l2"><span class="t">4.4 Menetapkan Akun Bawaan Perusahaan</span><span class="dots"></span><span class="p">20</span></div><div class="toc-row l1"><span class="t">Bab 5 Entry Data Master</span><span class="dots"></span><span class="p">22</span></div><div class="toc-row l2"><span class="t">5.1 Data Master Lebih Dulu</span><span class="dots"></span><span class="p">22</span></div><div class="toc-row l2"><span class="t">5.2 Barang (Item)</span><span class="dots"></span><span class="p">22</span></div><div class="toc-row l2"><span class="t">5.3 Pemasok dan Pelanggan</span><span class="dots"></span><span class="p">23</span></div><div class="toc-row l2"><span class="t">5.4 Bill of Materials</span><span class="dots"></span><span class="p">24</span></div><div class="toc-row l1"><span class="t">Bab 6 Studi Kasus PT Kopi Merapi Nusantara</span><span class="dots"></span><span class="p">48</span></div><div class="toc-row l2"><span class="t">6.1 Profil Perusahaan</span><span class="dots"></span><span class="p">26</span></div><div class="toc-row l2"><span class="t">6.2 Soal Transaksi September 2026</span><span class="dots"></span><span class="p">26</span></div><div class="toc-row l2"><span class="t">6.3 Hasil yang Harus Diperoleh</span><span class="dots"></span><span class="p">27</span></div><div class="toc-row l1"><span class="t">Bab 7 Petunjuk Pengerjaan Soal</span><span class="dots"></span><span class="p">28</span></div><div class="toc-row l2"><span class="t">7.1 Transaksi Non-Stok dengan Journal Entry (No. 1, 2, 3, 9, 13, 14)</span><span class="dots"></span><span class="p">28</span></div><div class="toc-row l2"><span class="t">7.2 Pembelian Bahan Baku (No. 4 dan 5)</span><span class="dots"></span><span class="p">29</span></div><div class="toc-row l2"><span class="t">7.3 Pembayaran ke Pemasok (No. 6)</span><span class="dots"></span><span class="p">31</span></div><div class="toc-row l2"><span class="t">7.4 Produksi dengan Work Order (No. 8 dan 10)</span><span class="dots"></span><span class="p">32</span></div><div class="toc-row l2"><span class="t">7.5 Penjualan (No. 11)</span><span class="dots"></span><span class="p">34</span></div><div class="toc-row l2"><span class="t">7.6 Penerimaan dari Pelanggan (No. 12)</span><span class="dots"></span><span class="p">36</span></div><div class="toc-row l1"><span class="t">Bab 8 Memeriksa Hasil Pengerjaan</span><span class="dots"></span><span class="p">37</span></div><div class="toc-row l2"><span class="t">8.1 General Ledger</span><span class="dots"></span><span class="p">38</span></div><div class="toc-row l2"><span class="t">8.2 Trial Balance</span><span class="dots"></span><span class="p">38</span></div><div class="toc-row l2"><span class="t">8.3 Profit and Loss Statement</span><span class="dots"></span><span class="p">40</span></div><div class="toc-row l2"><span class="t">8.4 Balance Sheet</span><span class="dots"></span><span class="p">41</span></div><div class="toc-row l2"><span class="t">8.5 Stock Balance</span><span class="dots"></span><span class="p">42</span></div><div class="toc-row l1"><span class="t">Bab 9 Skema Pelaksanaan Pengerjaan</span><span class="dots"></span><span class="p">43</span></div><div class="toc-row l2"><span class="t">9.1 Daftar Langkah dan Dokumen</span><span class="dots"></span><span class="p">44</span></div><div class="toc-row l2"><span class="t">9.2 Daftar Periksa sebelum Mengumpulkan</span><span class="dots"></span><span class="p">44</span></div><div class="toc-row l1"><span class="t">Bab 10 Pemecahan Masalah</span><span class="dots"></span><span class="p">45</span></div><div class="toc-row l2"><span class="t">10.1 Membatalkan dan Mengoreksi Dokumen</span><span class="dots"></span><span class="p">46</span></div><div class="toc-row l1"><span class="t">Penutup</span><span class="dots"></span><span class="p">47</span></div><div class="toc-row l2"><span class="t">Kesimpulan</span><span class="dots"></span><span class="p">47</span></div><div class="toc-row l2"><span class="t">Saran</span><span class="dots"></span><span class="p">47</span></div><div class="toc-row l2"><span class="t">Daftar Pustaka</span><span class="dots"></span><span class="p">47</span></div><div class="toc-row l2"><span class="t">Tentang Penulis</span><span class="dots"></span><span class="p">48</span></div></div>
+</section>
+
+<section class="chapter" id="bab1">
+<div class="ch-head v1"><div class="shp s1"></div><div class="shp s2"></div><div class="shp s3"></div><div class="ch-num">01</div><div class="ch-t"><span class="eyebrow">Bab 1</span><h1>Mengenal ERP dan ERPNext</h1></div></div>
+
+<h2 id="s1-1">1.1 Pencatatan yang Terpisah Itu Mahal</h2>
+<p>Bayangkan sebuah usaha sangrai kopi di lereng Merapi. Biji kopi hijau dibeli dari petani, disimpan di gudang, disangrai dan digiling, lalu dikemas dalam <i>pouch</i> 250 gram untuk dijual ke kedai kopi. Bagian pembelian mencatat pesanan di satu berkas, gudang memakai buku stok sendiri, produksi menulis laporan harian di kertas, dan bagian keuangan menyalin semuanya ke lembar kerja akuntansi. Angka yang sama diketik berulang kali. Selisih kecil antarbagian baru ketahuan saat tutup buku, dan menelusurinya bisa memakan waktu berhari-hari.</p>
+<p>Perusahaan manufaktur merasakan masalah ini lebih berat dibanding perusahaan dagang. Persediaannya terbagi tiga, yaitu bahan baku, barang dalam proses, dan barang jadi. Harga pokok produksi harus menghimpun biaya bahan, tenaga kerja langsung, dan <i>overhead</i>. Harga pokok penjualan pun baru bisa diakui saat barang jadi benar-benar keluar dari gudang. Semua perhitungan itu bergantung pada data yang mengalir lintas bagian.</p>
+
+<h2 id="s1-2">1.2 Apa Itu ERP</h2>
+<p><i>Enterprise Resource Planning</i> (ERP) adalah sistem informasi terpadu yang menyatukan proses bisnis utama perusahaan, seperti pembelian, persediaan, produksi, penjualan, dan akuntansi, dalam satu basis data. Monk dan Wagner (2013) menekankan bahwa nilai utama ERP terletak pada integrasi: satu transaksi cukup dicatat sekali di titik terjadinya, lalu dampaknya mengalir otomatis ke bagian lain. Romney dan Steinbart (2021) menambahkan bahwa integrasi semacam ini memperkuat pengendalian internal karena setiap angka di laporan dapat ditelusuri balik ke dokumen sumbernya.</p>
+<div class="tblwrap"><div class="tcap"><span>Tabel 1.1</span> Ciri sistem ERP dan maknanya bagi akuntan</div><div class="glass tbl"><table><thead><tr><th>Ciri</th><th>Penjelasan</th><th>Manfaat bagi akuntansi</th></tr></thead><tbody><tr><td>Terintegrasi</td><td>Pembelian, stok, produksi, dan penjualan berjalan di satu sistem</td><td>Tidak ada rekonsiliasi antaraplikasi</td></tr><tr><td>Basis data tunggal</td><td>Semua pengguna membaca data yang sama</td><td>Angka di laporan konsisten</td></tr><tr><td>Waktu nyata</td><td>Dokumen yang disahkan langsung tercermin di laporan</td><td>Laporan keuangan tersedia kapan saja</td></tr><tr><td>Berbasis dokumen</td><td>Setiap kejadian dicatat lewat dokumen baku yang saling terhubung</td><td>Jejak audit utuh dari dokumen ke jurnal</td></tr></tbody></table></div></div>
+
+<h2 id="s1-3">1.3 Mengenal ERPNext</h2>
+<p>ERPNext adalah aplikasi ERP berbasis web yang bersifat sumber terbuka (<i>open source</i>) dengan lisensi GNU GPL v3. Aplikasi ini dibangun di atas Frappe Framework yang memakai bahasa Python dan JavaScript. Kode sumbernya tersedia bebas di github.com/frappe/erpnext, dan dokumentasi resminya ada di docs.erpnext.com (Frappe Technologies, 2026a). Tanpa biaya lisensi, ERPNext sangat pas untuk belajar dan juga dipakai oleh banyak usaha kecil dan menengah.</p>
+<p>E-book ini memakai ERPNext versi 16 (rilis v16.50.0) yang dijalankan sendiri di komputer melalui Docker. Seluruh tangkapan layar di dalam buku diambil dari instalasi tersebut, sehingga tampilan yang pembaca lihat akan sama persis selama memakai versi yang sama.</p>
+<div class="tblwrap"><div class="tcap"><span>Tabel 1.2</span> Modul ERPNext yang dipakai dalam e-book ini</div><div class="glass tbl"><table><thead><tr><th>Modul</th><th>Fungsi utama</th><th>Dokumen yang dipakai</th></tr></thead><tbody><tr><td>Accounting</td><td>Bagan akun, jurnal, pembayaran, laporan keuangan</td><td>Journal Entry, Payment Entry</td></tr><tr><td>Buying</td><td>Pengadaan bahan dari pemasok</td><td>Purchase Order, Purchase Invoice</td></tr><tr><td>Stock</td><td>Gudang, barang, dan mutasi persediaan</td><td>Purchase Receipt, Stock Entry, Delivery Note</td></tr><tr><td>Manufacturing</td><td>Resep produk dan perintah produksi</td><td>BOM, Work Order</td></tr><tr><td>Selling</td><td>Pesanan dan tagihan ke pelanggan</td><td>Sales Order, Sales Invoice</td></tr></tbody></table></div></div>
+
+<h2 id="s1-4">1.4 Istilah yang Perlu Dikuasai</h2>
+<ul class="def">
+<li><b>DocType dan dokumen.</b> Setiap formulir di ERPNext disebut <i>DocType</i>, misalnya Item atau Purchase Order. Satu isian formulir yang tersimpan disebut dokumen.</li>
+<li><b>Draft, Submitted, Cancelled.</b> Dokumen baru berstatus Draft dan masih bisa diubah. Tombol <b>Submit</b> mengunci dokumen dan barulah jurnal serta mutasi stok terbentuk. Dokumen yang salah dibatalkan dengan <b>Cancel</b>, lalu diperbaiki lewat <b>Amend</b>.</li>
+<li><b>Perpetual inventory.</b> Setiap mutasi persediaan langsung menghasilkan jurnal, sehingga saldo akun persediaan selalu sama dengan nilai stok di gudang.</li>
+<li><b>Company dan singkatan.</b> Semua transaksi tercatat atas nama satu Company. Singkatannya (pada buku ini KMN) ditempel otomatis di belakang nama akun dan gudang.</li>
+<li><b>Dokumen berantai.</b> Dokumen lanjutan dibuat dari dokumen sebelumnya lewat tombol <b>Create</b>, misalnya Purchase Receipt dari Purchase Order. Data terbawa otomatis dan hubungan antardokumen tercatat.</li>
+</ul>
+<aside class="glass note info"><div class="ico">i</div><div><b class="nt">Cara membaca buku ini</b><p>Bab 2 sampai 5 menyiapkan sistem dan data dasar. Bab 6 memuat soal studi kasus PT Kopi Merapi Nusantara, Bab 7 membahas cara mengerjakannya langkah demi langkah, dan Bab 8 menunjukkan cara membuktikan hasilnya lewat laporan. Bab 9 merangkum seluruh alur dalam satu skema, sementara Bab 10 berisi masalah yang benar-benar muncul selama penyusunan buku ini beserta solusinya.</p></div></aside>
+
+</section>
+<section class="chapter" id="bab2">
+<div class="ch-head v2"><div class="shp s1"></div><div class="shp s2"></div><div class="shp s3"></div><div class="ch-num">02</div><div class="ch-t"><span class="eyebrow">Bab 2</span><h1>Instalasi ERPNext dengan Docker</h1></div></div>
+
+<h2 id="s2-1">2.1 Mengapa Docker</h2>
+<p>ERPNext terdiri atas beberapa komponen yang harus hidup bersamaan: aplikasi web, server basis data MariaDB, Redis untuk antrean dan <i>cache</i>, penjadwal tugas, serta layanan <i>websocket</i>. Memasang semuanya satu per satu cukup rumit bagi pemula. Docker membungkus tiap komponen dalam wadah (<i>container</i>) yang sudah siap jalan, sehingga seluruh sistem cukup dinyalakan dengan satu perintah. Tim Frappe menyediakan repositori resmi <b>frappe_docker</b> berisi berkas <b>pwd.yml</b>, yaitu konfigurasi lengkap untuk lingkungan belajar dan demonstrasi (Frappe Technologies, 2026b).</p>
+<div class="tblwrap"><div class="tcap"><span>Tabel 2.1</span> Kebutuhan perangkat</div><div class="glass tbl"><table><thead><tr><th>Komponen</th><th>Minimum</th><th>Disarankan</th></tr></thead><tbody><tr><td>Sistem operasi</td><td>Windows 10/11 64-bit dengan WSL 2, macOS, atau Linux</td><td>Windows 11 terbaru</td></tr><tr><td>Prosesor</td><td>64-bit dengan virtualisasi (Intel VT-x/AMD-V) aktif</td><td>4 inti atau lebih</td></tr><tr><td>Memori</td><td>8 GB</td><td>16 GB</td></tr><tr><td>Ruang disk</td><td>20 GB kosong</td><td>SSD dengan 30 GB kosong</td></tr><tr><td>Internet</td><td>Stabil, unduhan awal sekitar 5 GB</td><td>Koneksi kabel atau Wi-Fi cepat</td></tr></tbody></table></div></div>
+
+<h2 id="s2-2">2.2 Menyiapkan WSL 2 dan Docker Desktop</h2>
+<ol class="steps">
+<li>Periksa virtualisasi. Buka Task Manager (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Esc</kbd>), tab <b>Performance</b>, pilih <b>CPU</b>. Baris <b>Virtualization</b> harus bernilai Enabled. Status Disabled berarti fitur ini perlu dinyalakan di BIOS/UEFI.</li>
+<li>Pasang WSL 2. Buka PowerShell sebagai administrator lalu jalankan perintah di bawah, kemudian mulai ulang komputer.</li>
+</ol>
+<pre class="glass code"><code>wsl --install
+wsl --version</code></pre>
+<ol class="steps" start="3">
+<li>Unduh Docker Desktop dari docker.com. Pilih AMD64 untuk prosesor Intel/AMD, atau ARM64 untuk prosesor Snapdragon dan Apple Silicon.</li>
+<li>Jalankan pemasang dengan opsi <b>Use WSL 2 instead of Hyper-V</b> tetap tercentang. Mulai ulang komputer bila diminta.</li>
+<li>Buka Docker Desktop dan tunggu sampai indikator di pojok kiri bawah bertuliskan <b>Engine running</b>.</li>
+<li>Uji Docker melalui terminal. Perintah terakhir harus menampilkan pesan <i>Hello from Docker!</i></li>
+</ol>
+<pre class="glass code"><code>docker --version
+docker compose version
+docker run hello-world</code></pre>
+
+<h2 id="s2-3">2.3 Mengunduh dan Menjalankan ERPNext</h2>
+<p>Siapkan folder kerja tanpa spasi, misalnya <code>C:\ERPNext</code>. Pasang Git dari git-scm.com bila belum ada, lalu jalankan perintah berikut dari PowerShell di folder tersebut.</p>
+<pre class="glass code"><code>git clone https://github.com/frappe/frappe_docker
+cd frappe_docker
+docker compose -f pwd.yml up -d</code></pre>
+<p>Saat pertama dijalankan, Docker mengunduh <i>image</i> ERPNext (sekitar 4,4 GB) dan MariaDB. Pada penyusunan buku ini, berkas pwd.yml menunjuk ke image <code>frappe/erpnext:v16.50.0</code>. Begitu semua <i>container</i> menyala, container bernama <b>create-site</b> memasang Frappe dan ERPNext ke situs baru. Proses ini memakan waktu 5 sampai 15 menit. Kemajuannya bisa dipantau dengan perintah berikut. Situs siap dipakai begitu create-site selesai dan berhenti.</p>
+<pre class="glass code"><code>docker compose -f pwd.yml logs -f create-site
+docker compose -f pwd.yml ps</code></pre>
+
+<h2 id="s2-4">2.4 Login Pertama</h2>
+<p>Buka peramban ke alamat <code>http://localhost:8080</code>. Halaman masuk ERPNext akan tampil seperti Gambar 2.1. Gunakan pengguna bawaan pwd.yml, yaitu <b>Administrator</b> dengan kata sandi <b>admin</b>, lalu klik <b>Continue</b>.</p>
+<figure class="fig small"><div class="glass frame"><img src="img/01_login.jpg"></div><figcaption><span>Gambar 2.1</span> Halaman login ERPNext v16 di localhost:8080</figcaption></figure>
+<aside class="glass note warn"><div class="ico">!</div><div><b class="nt">Keamanan</b><p>Kata sandi bawaan hanya layak untuk latihan di komputer pribadi. Gantilah lewat menu profil, <b>My Settings</b>, bila ERPNext dipakai untuk data sungguhan atau dapat diakses dari jaringan lain.</p></div></aside>
+
+<h2 id="s2-5">2.5 Mengelola ERPNext Sehari-hari</h2>
+<div class="tblwrap"><div class="tcap"><span>Tabel 2.2</span> Perintah pengelolaan (dijalankan di folder frappe_docker)</div><div class="glass tbl"><table><thead><tr><th>Tujuan</th><th>Perintah</th></tr></thead><tbody><tr><td>Menghentikan ERPNext, data aman</td><td><code>docker compose -f pwd.yml stop</code></td></tr><tr><td>Menyalakan kembali</td><td><code>docker compose -f pwd.yml start</code></td></tr><tr><td>Melihat status container</td><td><code>docker compose -f pwd.yml ps</code></td></tr><tr><td>Melihat log aplikasi</td><td><code>docker compose -f pwd.yml logs -f backend</code></td></tr><tr><td>Mematikan dan menghapus container, data tetap di volume</td><td><code>docker compose -f pwd.yml down</code></td></tr></tbody></table></div></div>
+<aside class="glass note danger"><div class="ico">×</div><div><b class="nt">Jangan pakai opsi -v</b><p>Perintah <code>docker compose -f pwd.yml down -v</code> ikut menghapus volume. Seluruh data ERPNext, termasuk transaksi yang sudah dikerjakan, hilang dan instalasi harus diulang dari awal.</p></div></aside>
+
+</section>
+<section class="chapter" id="bab3">
+<div class="ch-head v0"><div class="shp s1"></div><div class="shp s2"></div><div class="shp s3"></div><div class="ch-num">03</div><div class="ch-t"><span class="eyebrow">Bab 3</span><h1>Pengaturan Awal Perusahaan</h1></div></div>
+
+<h2 id="s3-1">3.1 Setup Wizard Empat Langkah</h2>
+<p>Begitu Administrator masuk pertama kali, ERPNext v16 membuka <b>Setup Wizard</b>. Layar pembukanya menampilkan sapaan dalam berbagai bahasa dan tombol <b>Get Started</b>. Wizard versi 16 terdiri atas empat langkah singkat.</p>
+<div class="grid2">
+<figure class="fig small"><div class="glass frame"><img src="img/03_wizard_step1.jpg"></div><figcaption><span>Gambar 3.1</span> Langkah 1: bahasa, negara, zona waktu, dan mata uang</figcaption></figure>
+<figure class="fig small"><div class="glass frame"><img src="img/03_wizard_step2.jpg"></div><figcaption><span>Gambar 3.2</span> Langkah 2: membuat akun pengguna</figcaption></figure>
+</div>
+<p>Pada langkah 1, isi <b>Language</b> English, <b>Country</b> Indonesia, <b>Time Zone</b> Asia/Jakarta, dan <b>Currency</b> IDR. Bahasa Inggris dipilih supaya nama menu sama dengan dokumentasi resmi. Langkah 2 meminta nama lengkap, surel, dan kata sandi pengguna pertama. Catat kata sandi ini karena dipakai untuk login berikutnya.</p>
+<figure class="fig"><div class="glass frame"><img src="img/03_wizard_step3.jpg"></div><figcaption><span>Gambar 3.3</span> Langkah 3: profil usaha, wajib memilih Manufacturing</figcaption></figure>
+<p>Langkah 3 adalah bagian terpenting. Isian <b>What kind of work do you do?</b> wajib diisi <b>Manufacturing</b> agar modul produksi aktif sejak awal. Isian lain bersifat profil dan boleh menyesuaikan. Centang modul Accounting, Manufacturing, dan Stock pada bagian bawah.</p>
+<figure class="fig"><div class="glass frame"><img src="img/03_wizard_step4.jpg"></div><figcaption><span>Gambar 3.4</span> Langkah 4: data perusahaan</figcaption></figure>
+<p>Langkah terakhir berisi identitas perusahaan. Isi <b>Company Name</b> PT Kopi Merapi Nusantara, ganti <b>Company Abbreviation</b> menjadi <b>KMN</b>, pilih <b>Chart of Accounts</b> Standard, dan isi awal tahun buku 01-01-2026. Biarkan opsi data demo tidak dicentang, lalu klik <b>Complete Setup</b>. Proses penyiapan berlangsung sekitar satu sampai dua menit.</p>
+<aside class="glass note warn"><div class="ico">!</div><div><b class="nt">Singkatan terisi otomatis</b><p>ERPNext mengisi singkatan dari huruf depan nama perusahaan, yaitu PKMN. Ubahlah sebelum menekan Complete Setup. Singkatan akan menempel di belakang setiap nama akun dan gudang, misalnya <b>1121 - Bank BRI - KMN</b>, dan sulit diganti setelah ada transaksi.</p></div></aside>
+
+<h2 id="s3-2">3.2 Mengenal Tampilan Desk</h2>
+<figure class="fig"><div class="glass frame"><img src="img/04_desk.jpg"></div><figcaption><span>Gambar 3.5</span> Halaman Home (Desk) sesudah Setup Wizard selesai</figcaption></figure>
+<p>Halaman utama ERPNext disebut Desk. Bilah kiri memuat ikon modul dan daftar menu. Kotak <b>Search</b> (pintasan <kbd>Ctrl</kbd>+<kbd>K</kbd>) adalah cara tercepat membuka dokumen apa pun, cukup ketik misalnya <i>Purchase Order</i> atau <i>Trial Balance</i>. Setiap daftar dokumen (<i>List View</i>) punya tombol <b>Add</b> di kanan atas, sedangkan formulir dokumen menampilkan status serta tombol <b>Save</b>, <b>Submit</b>, dan <b>Create</b>.</p>
+
+<h2 id="s3-3">3.3 Gudang untuk Tiga Jenis Persediaan</h2>
+<p>Perusahaan manufaktur memisahkan gudang menurut tahap persediaan agar nilai bahan baku, barang dalam proses, dan barang jadi terpisah di buku besar. Buka <b>Stock &gt; Warehouse</b>, klik <b>Add Warehouse</b>, lalu buat tiga gudang pada Tabel 3.1. Isian <b>Account</b> pada tiap gudang menghubungkan gudang ke akun persediaannya.</p>
+<div class="tblwrap"><div class="tcap"><span>Tabel 3.1</span> Gudang PT Kopi Merapi Nusantara</div><div class="glass tbl"><table><thead><tr><th>Gudang</th><th>Akun persediaan</th><th>Fungsi</th></tr></thead><tbody><tr><td>Gudang Bahan Baku - KMN</td><td>1141 Persediaan Bahan Baku</td><td>Biji kopi hijau, pouch, label</td></tr><tr><td>Gudang Barang Dalam Proses - KMN</td><td>1142 Persediaan Barang Dalam Proses</td><td>Bahan yang sedang disangrai dan dikemas</td></tr><tr><td>Gudang Barang Jadi - KMN</td><td>1143 Persediaan Barang Jadi</td><td>Kopi bubuk kemasan siap jual</td></tr></tbody></table></div></div>
+<figure class="fig"><div class="glass frame"><img src="img/08_warehouse_tree.jpg"></div><figcaption><span>Gambar 3.6</span> Pohon gudang sesudah tiga gudang studi kasus dibuat</figcaption></figure>
+
+<h2 id="s3-4">3.4 Pengaturan Stok dan Manufaktur</h2>
+<p>Buka <b>Manufacturing Settings</b> dan isi <b>Default Work In Progress Warehouse</b> dengan Gudang Barang Dalam Proses serta <b>Default Finished Goods Warehouse</b> dengan Gudang Barang Jadi. Isian <b>Backflush Raw Materials Based On</b> dibiarkan BOM, artinya pemakaian bahan dihitung dari resep produk. Pada <b>Stock Settings</b>, isi <b>Default Warehouse</b> dengan Gudang Bahan Baku.</p>
+<div class="grid2">
+<figure class="fig small"><div class="glass frame"><img src="img/10_manufacturing_settings.jpg"></div><figcaption><span>Gambar 3.7</span> Manufacturing Settings</figcaption></figure>
+<figure class="fig small"><div class="glass frame"><img src="img/07c_company_stok.jpg"></div><figcaption><span>Gambar 3.8</span> Tab Stock and Manufacturing pada Company</figcaption></figure>
+</div>
+<p>Tab <b>Stock and Manufacturing</b> pada formulir Company memuat dua isian penting. <b>Enable Perpetual Inventory</b> harus tercentang supaya setiap mutasi stok langsung menghasilkan jurnal. <b>Default Stock Valuation Method</b> pada studi kasus ini bernilai FIFO, yaitu barang yang masuk lebih dulu dianggap keluar lebih dulu.</p>
+<aside class="glass note warn"><div class="ico">!</div><div><b class="nt">Tentukan metode penilaian sejak awal</b><p>Metode penilaian persediaan tidak dapat diganti setelah ada transaksi stok. Saat penyusunan buku ini, upaya mengubah FIFO menjadi Moving Average sesudah transaksi ditolak sistem dengan pesan <i>Can't change the valuation method, as there are transactions against some items</i>. Samakan isian di Company dan Stock Settings sebelum mencatat transaksi pertama.</p></div></aside>
+
+</section>
+<section class="chapter" id="bab4">
+<div class="ch-head v1"><div class="shp s1"></div><div class="shp s2"></div><div class="shp s3"></div><div class="ch-num">04</div><div class="ch-t"><span class="eyebrow">Bab 4</span><h1>Chart of Accounts Manufaktur</h1></div></div>
+
+<h2 id="s4-1">4.1 Konsep Bagan Akun</h2>
+<p><i>Chart of Accounts</i> (COA) adalah daftar seluruh akun yang dipakai perusahaan, dikelompokkan dalam lima akun induk: Aset, Liabilitas, Ekuitas, Pendapatan, dan Beban. COA manufaktur butuh akun yang tidak ada di perusahaan dagang, yaitu tiga akun persediaan dan akun biaya produksi. Kolom <b>Account Type</b> sangat penting di ERPNext karena sistem memakainya untuk mengenali fungsi akun, misalnya mana akun kas, piutang, atau persediaan.</p>
+<div class="tblwrap"><div class="tcap"><span>Tabel 4.1</span> Chart of Accounts PT Kopi Merapi Nusantara (32 akun)</div><div class="glass tbl"><table><thead><tr><th>No. Akun</th><th>Nama akun</th><th>Root Type</th><th>Account Type</th><th>Jenis</th></tr></thead><tbody><tr><td>1000</td><td><span style="padding-left:0px"><b>Aset</b></span></td><td>Asset</td><td>-</td><td>Grup</td></tr><tr><td>1100</td><td><span style="padding-left:12px"><b>Aset Lancar</b></span></td><td>Asset</td><td>-</td><td>Grup</td></tr><tr><td>1110</td><td><span style="padding-left:24px"><b>Kas</b></span></td><td>Asset</td><td>Cash</td><td>Grup</td></tr><tr><td>1111</td><td><span style="padding-left:36px">Kas Kecil</span></td><td>Asset</td><td>Cash</td><td>Transaksi</td></tr><tr><td>1120</td><td><span style="padding-left:24px"><b>Bank</b></span></td><td>Asset</td><td>Bank</td><td>Grup</td></tr><tr><td>1121</td><td><span style="padding-left:36px">Bank BRI</span></td><td>Asset</td><td>Bank</td><td>Transaksi</td></tr><tr><td>1130</td><td><span style="padding-left:24px">Piutang Usaha</span></td><td>Asset</td><td>Receivable</td><td>Transaksi</td></tr><tr><td>1140</td><td><span style="padding-left:24px"><b>Persediaan</b></span></td><td>Asset</td><td>Stock</td><td>Grup</td></tr><tr><td>1141</td><td><span style="padding-left:36px">Persediaan Bahan Baku</span></td><td>Asset</td><td>Stock</td><td>Transaksi</td></tr><tr><td>1142</td><td><span style="padding-left:36px">Persediaan Barang Dalam Proses</span></td><td>Asset</td><td>Stock</td><td>Transaksi</td></tr><tr><td>1143</td><td><span style="padding-left:36px">Persediaan Barang Jadi</span></td><td>Asset</td><td>Stock</td><td>Transaksi</td></tr><tr><td>1200</td><td><span style="padding-left:12px"><b>Aset Tetap</b></span></td><td>Asset</td><td>-</td><td>Grup</td></tr><tr><td>1210</td><td><span style="padding-left:24px">Mesin Produksi</span></td><td>Asset</td><td>Fixed Asset</td><td>Transaksi</td></tr><tr><td>1220</td><td><span style="padding-left:24px">Akumulasi Penyusutan Mesin</span></td><td>Asset</td><td>Accumulated Depreciation</td><td>Transaksi</td></tr><tr><td>2000</td><td><span style="padding-left:0px"><b>Liabilitas</b></span></td><td>Liability</td><td>-</td><td>Grup</td></tr><tr><td>2100</td><td><span style="padding-left:12px"><b>Liabilitas Jangka Pendek</b></span></td><td>Liability</td><td>-</td><td>Grup</td></tr><tr><td>2110</td><td><span style="padding-left:24px">Utang Usaha</span></td><td>Liability</td><td>Payable</td><td>Transaksi</td></tr><tr><td>2120</td><td><span style="padding-left:24px">Barang Diterima Belum Ditagih</span></td><td>Liability</td><td>Stock Received But Not Billed</td><td>Transaksi</td></tr><tr><td>3000</td><td><span style="padding-left:0px"><b>Ekuitas</b></span></td><td>Equity</td><td>-</td><td>Grup</td></tr><tr><td>3100</td><td><span style="padding-left:12px">Modal Disetor</span></td><td>Equity</td><td>Equity</td><td>Transaksi</td></tr><tr><td>3200</td><td><span style="padding-left:12px">Laba Ditahan</span></td><td>Equity</td><td>Equity</td><td>Transaksi</td></tr><tr><td>4000</td><td><span style="padding-left:0px"><b>Pendapatan</b></span></td><td>Income</td><td>-</td><td>Grup</td></tr><tr><td>4100</td><td><span style="padding-left:12px">Penjualan Kopi Bubuk</span></td><td>Income</td><td>Income Account</td><td>Transaksi</td></tr><tr><td>5000</td><td><span style="padding-left:0px"><b>Beban</b></span></td><td>Expense</td><td>-</td><td>Grup</td></tr><tr><td>5100</td><td><span style="padding-left:12px"><b>Beban Produksi</b></span></td><td>Expense</td><td>-</td><td>Grup</td></tr><tr><td>5110</td><td><span style="padding-left:24px">Harga Pokok Penjualan</span></td><td>Expense</td><td>Cost of Goods Sold</td><td>Transaksi</td></tr><tr><td>5120</td><td><span style="padding-left:24px">Biaya Tenaga Kerja Langsung</span></td><td>Expense</td><td>Expenses Included In Valuation</td><td>Transaksi</td></tr><tr><td>5130</td><td><span style="padding-left:24px">Selisih Penilaian Persediaan</span></td><td>Expense</td><td>Stock Adjustment</td><td>Transaksi</td></tr><tr><td>5200</td><td><span style="padding-left:12px"><b>Beban Operasional</b></span></td><td>Expense</td><td>-</td><td>Grup</td></tr><tr><td>5210</td><td><span style="padding-left:24px">Beban Listrik dan Gas</span></td><td>Expense</td><td>Expense Account</td><td>Transaksi</td></tr><tr><td>5220</td><td><span style="padding-left:24px">Beban Penyusutan</span></td><td>Expense</td><td>Depreciation</td><td>Transaksi</td></tr><tr><td>5230</td><td><span style="padding-left:24px">Pembulatan</span></td><td>Expense</td><td>Round Off</td><td>Transaksi</td></tr></tbody></table></div></div>
+
+<h2 id="s4-2">4.2 Menyiapkan Berkas COA</h2>
+<p>COA disusun dalam berkas Excel dengan kolom <b>Account Name, Parent Account, Account Number, Parent Account Number, Is Group, Account Type, Root Type</b>, dan <b>Account Currency</b>. Templat kosongnya dapat diunduh dari <b>Chart of Accounts Importer</b> melalui tombol <b>Download Template</b>. Berkas COA lengkap studi kasus ini tersedia di repositori GitHub pendamping buku dengan nama <code>COA_PT Kopi Merapi Nusantara.xlsx</code>.</p>
+<aside class="glass note info"><div class="ico">i</div><div><b class="nt">Syarat dari importer</b><p>Importer ERPNext memeriksa susunan akun. Akun bertipe Cash, Bank, dan Stock harus berupa <b>akun grup</b> (Is Group = 1) yang membawahi akun transaksinya, misalnya grup 1110 Kas membawahi 1111 Kas Kecil. Akun bertipe Payable, Receivable, Cost of Goods Sold, Stock Adjustment, Fixed Asset, dan Depreciation juga wajib ada. Berkas yang tidak memenuhi syarat ini ditolak.</p></div></aside>
+
+<h2 id="s4-3">4.3 Mengimpor COA</h2>
+<ol class="steps">
+<li>Buka <b>Accounting &gt; Chart of Accounts Importer</b>.</li>
+<li>Pilih <b>Company</b> PT Kopi Merapi Nusantara.</li>
+<li>Unggah berkas Excel pada isian <b>Attach custom Chart of Accounts file</b>. Pratinjau pohon akun akan muncul.</li>
+<li>Periksa susunannya, lalu klik <b>Import</b>. COA bawaan Setup Wizard diganti dengan COA dari berkas.</li>
+</ol>
+<figure class="fig"><div class="glass frame"><img src="img/05_coa_importer.jpg"></div><figcaption><span>Gambar 4.1</span> Memilih Company pada Chart of Accounts Importer</figcaption></figure>
+<aside class="glass note warn"><div class="ico">!</div><div><b class="nt">Lakukan sebelum transaksi</b><p>Importer hanya bisa menimpa COA selama perusahaan belum punya transaksi apa pun. Jalankan impor tepat sesudah Setup Wizard.</p></div></aside>
+<figure class="fig"><div class="glass frame"><img src="img/06_coa_tree.jpg"></div><figcaption><span>Gambar 4.2</span> Pohon Chart of Accounts PT Kopi Merapi Nusantara (saldo sesudah studi kasus selesai)</figcaption></figure>
+
+<h2 id="s4-4">4.4 Menetapkan Akun Bawaan Perusahaan</h2>
+<p>Sesudah COA baru terpasang, beri tahu ERPNext akun mana yang dipakai untuk fungsi tertentu. Buka formulir Company, tab <b>Accounts</b> dan tab <b>Stock and Manufacturing</b>, lalu isi sesuai Tabel 4.2.</p>
+<div class="tblwrap"><div class="tcap"><span>Tabel 4.2</span> Akun bawaan pada formulir Company</div><div class="glass tbl"><table><thead><tr><th>Isian</th><th>Akun</th></tr></thead><tbody><tr><td>Default Bank Account</td><td>1121 - Bank BRI - KMN</td></tr><tr><td>Default Cash Account</td><td>1111 - Kas Kecil - KMN</td></tr><tr><td>Default Receivable Account</td><td>1130 - Piutang Usaha - KMN</td></tr><tr><td>Default Payable Account</td><td>2110 - Utang Usaha - KMN</td></tr><tr><td>Default Income Account</td><td>4100 - Penjualan Kopi Bubuk - KMN</td></tr><tr><td>Default Cost of Goods Sold Account</td><td>5110 - Harga Pokok Penjualan - KMN</td></tr><tr><td>Round Off Account</td><td>5230 - Pembulatan - KMN</td></tr><tr><td>Default Inventory Account</td><td>1141 - Persediaan Bahan Baku - KMN</td></tr><tr><td>Stock Adjustment Account</td><td>5130 - Selisih Penilaian Persediaan - KMN</td></tr><tr><td>Stock Received But Not Billed</td><td>2120 - Barang Diterima Belum Ditagih - KMN</td></tr><tr><td>Expenses Included In Valuation</td><td>5120 - Biaya Tenaga Kerja Langsung - KMN</td></tr><tr><td>Depreciation Expense / Accumulated Depreciation</td><td>5220 Beban Penyusutan / 1220 Akumulasi Penyusutan Mesin</td></tr></tbody></table></div></div>
+<figure class="fig"><div class="glass frame"><img src="img/07b_company_akun.jpg"></div><figcaption><span>Gambar 4.3</span> Tab Accounts pada formulir Company sesudah diisi</figcaption></figure>
+
+</section>
+<section class="chapter" id="bab5">
+<div class="ch-head v2"><div class="shp s1"></div><div class="shp s2"></div><div class="shp s3"></div><div class="ch-num">05</div><div class="ch-t"><span class="eyebrow">Bab 5</span><h1>Entry Data Master</h1></div></div>
+
+<h2 id="s5-1">5.1 Data Master Lebih Dulu</h2>
+<p>Data master adalah data yang dipakai berulang oleh banyak transaksi: barang, pemasok, pelanggan, dan resep produk. Semuanya wajib ada sebelum transaksi dicatat. Urutan yang aman adalah satuan, barang, pemasok, pelanggan, lalu BOM.</p>
+
+<h2 id="s5-2">5.2 Barang (Item)</h2>
+<p>Buka <b>Stock &gt; Item &gt; Add Item</b>. Isi <b>Item Code</b>, <b>Item Name</b>, <b>Item Group</b>, dan <b>Default Unit of Measure</b>, pastikan <b>Maintain Stock</b> tercentang, lalu pada tab <b>Inventory</b> isi gudang bawaan. Bahan baku tidak perlu dijual sehingga <b>Allow Sales</b> boleh dimatikan, sebaliknya barang jadi tidak dibeli.</p>
+<div class="tblwrap"><div class="tcap"><span>Tabel 5.1</span> Data barang</div><div class="glass tbl"><table><thead><tr><th>Item Code</th><th>Item Name</th><th>Item Group</th><th>Satuan</th><th>Gudang bawaan</th></tr></thead><tbody><tr><td>RM-KOPI-ARB</td><td>Biji Kopi Hijau Arabika</td><td>Raw Material</td><td>Kg</td><td>Gudang Bahan Baku</td></tr><tr><td>RM-POUCH-250</td><td>Kemasan Pouch Zipper 250 g</td><td>Raw Material</td><td>Pcs</td><td>Gudang Bahan Baku</td></tr><tr><td>RM-LABEL</td><td>Label Stiker Produk</td><td>Raw Material</td><td>Pcs</td><td>Gudang Bahan Baku</td></tr><tr><td>FG-KOPI-250</td><td>Kopi Bubuk Arabika Merapi 250 g</td><td>Products</td><td>Pcs</td><td>Gudang Barang Jadi</td></tr></tbody></table></div></div>
+<figure class="fig"><div class="glass frame"><img src="img/12_item_form.jpg"></div><figcaption><span>Gambar 5.1</span> Formulir Item untuk biji kopi hijau</figcaption></figure>
+<aside class="glass note info"><div class="ico">i</div><div><b class="nt">Satuan Kg harus boleh pecahan</b><p>Satu bungkus kopi membutuhkan 0,3 kg biji kopi. Satuan Kg harus membolehkan angka desimal, yaitu opsi <b>Must be Whole Number</b> pada UOM Kg tidak dicentang. Satuan Pcs sebaliknya dicentang.</p></div></aside>
+<figure class="fig"><div class="glass frame"><img src="img/11_item_list.jpg"></div><figcaption><span>Gambar 5.2</span> Daftar empat barang studi kasus</figcaption></figure>
+
+<h2 id="s5-3">5.3 Pemasok dan Pelanggan</h2>
+<p>Pemasok dibuat di <b>Buying &gt; Supplier</b> dan pelanggan di <b>Selling &gt; Customer</b>. Isian minimalnya adalah nama, jenis (Company atau Individual), dan kelompok.</p>
+<div class="tblwrap"><div class="tcap"><span>Tabel 5.2</span> Pemasok dan pelanggan</div><div class="glass tbl"><table><thead><tr><th>Peran</th><th>Nama</th><th>Kelompok</th><th>Barang/keterangan</th></tr></thead><tbody><tr><td>Supplier</td><td>CV Tani Merapi</td><td>Raw Material</td><td>Biji kopi hijau arabika</td></tr><tr><td>Supplier</td><td>UD Kemas Jaya</td><td>Raw Material</td><td>Pouch dan label</td></tr><tr><td>Customer</td><td>Kedai Kopi Simpang Lima</td><td>Commercial</td><td>Pembeli kopi bubuk kemasan</td></tr></tbody></table></div></div>
+<div class="grid2">
+<figure class="fig small"><div class="glass frame"><img src="img/13_supplier_list.jpg"></div><figcaption><span>Gambar 5.3</span> Daftar Supplier</figcaption></figure>
+<figure class="fig small"><div class="glass frame"><img src="img/14_customer_form.jpg"></div><figcaption><span>Gambar 5.4</span> Formulir Customer</figcaption></figure>
+</div>
+
+<h2 id="s5-4">5.4 Bill of Materials</h2>
+<p><i>Bill of Materials</i> (BOM) adalah resep produk: daftar bahan dan jumlahnya untuk membuat satu unit barang jadi. Buka <b>Manufacturing &gt; BOM &gt; Add BOM</b>, pilih <b>Item</b> FG-KOPI-250 dengan <b>Quantity</b> 1, isi tabel bahan sesuai Tabel 5.3, lalu <b>Save</b> dan <b>Submit</b>. BOM yang sudah di-Submit otomatis menjadi BOM bawaan (<i>Default</i>) bagi barang tersebut.</p>
+<div class="tblwrap"><div class="tcap"><span>Tabel 5.3</span> BOM satu bungkus Kopi Bubuk Arabika Merapi 250 g</div><div class="glass tbl"><table><thead><tr><th>Bahan</th><th>Qty</th><th>Satuan</th><th>Harga</th><th>Biaya</th></tr></thead><tbody><tr><td>Biji Kopi Hijau Arabika</td><td>0,3</td><td>Kg</td><td>Rp120.000</td><td>Rp36.000</td></tr><tr><td>Kemasan Pouch Zipper 250 g</td><td>1</td><td>Pcs</td><td>Rp2.500</td><td>Rp2.500</td></tr><tr><td>Label Stiker Produk</td><td>1</td><td>Pcs</td><td>Rp500</td><td>Rp500</td></tr><tr><td><b>Total biaya bahan per bungkus</b></td><td></td><td></td><td></td><td><b>Rp39.000</b></td></tr></tbody></table></div></div>
+<figure class="fig"><div class="glass frame"><img src="img/15_bom.jpg"></div><figcaption><span>Gambar 5.5</span> BOM-FG-KOPI-250-001 berstatus Default</figcaption></figure>
+<p>Angka 0,3 kg berasal dari susut sangrai. Biji kopi hijau kehilangan sekitar 15 sampai 20 persen beratnya saat disangrai karena kadar air menguap, sehingga 250 gram kopi bubuk membutuhkan kira-kira 300 gram biji hijau.</p>
+
+</section>
+<section class="chapter" id="bab6">
+<div class="ch-head v0"><div class="shp s1"></div><div class="shp s2"></div><div class="shp s3"></div><div class="ch-num">06</div><div class="ch-t"><span class="eyebrow">Bab 6</span><h1>Studi Kasus PT Kopi Merapi Nusantara</h1></div></div>
+
+<h2 id="s6-1">6.1 Profil Perusahaan</h2>
+<p>PT Kopi Merapi Nusantara (KMN) mengolah biji kopi hijau arabika dari petani lereng Merapi menjadi kopi bubuk kemasan 250 gram dengan merek Kopi Bubuk Arabika Merapi. Produksi memakai pola <i>make to stock</i>: kopi disangrai, digiling, dan dikemas lebih dulu, disimpan di gudang barang jadi, lalu dijual ke kedai kopi. Perusahaan mulai beroperasi 1 September 2026 tanpa saldo awal. Seluruh nilai dalam rupiah tanpa PPN, dan metode penilaian persediaan FIFO.</p>
+<div class="tblwrap"><div class="tcap"><span>Tabel 6.1</span> Data pokok studi kasus</div><div class="glass tbl"><table><thead><tr><th>Keterangan</th><th>Nilai</th></tr></thead><tbody><tr><td>Produk</td><td>FG-KOPI-250 Kopi Bubuk Arabika Merapi 250 g</td></tr><tr><td>Biaya bahan per bungkus (BOM)</td><td>Rp39.000</td></tr><tr><td>Rencana produksi</td><td>500 bungkus</td></tr><tr><td>Upah tenaga kerja langsung</td><td>Rp2.500.000 untuk 500 bungkus (Rp5.000 per bungkus)</td></tr><tr><td>Harga pokok produksi per bungkus</td><td>Rp44.000</td></tr><tr><td>Harga jual</td><td>Rp70.000 per bungkus</td></tr></tbody></table></div></div>
+
+<h2 id="s6-2">6.2 Soal Transaksi September 2026</h2>
+<p>Catat seluruh transaksi berikut di ERPNext sesuai urutan dan tanggalnya. Pada setiap dokumen, isi <b>Posting Date</b> sesuai tanggal soal. Untuk dokumen stok, centang <b>Edit Posting Date and Time</b> lebih dulu agar tanggal bisa diubah.</p>
+<div class="tblwrap"><div class="tcap"><span>Tabel 6.2</span> Daftar transaksi</div><div class="glass tbl"><table><thead><tr><th>No</th><th>Tanggal</th><th>Transaksi</th></tr></thead><tbody><tr><td>1</td><td>1 Sep</td><td>Pemilik menyetor modal Rp300.000.000 ke rekening Bank BRI perusahaan.</td></tr><tr><td>2</td><td>1 Sep</td><td>Penarikan tunai dari Bank BRI untuk kas kecil Rp5.000.000.</td></tr><tr><td>3</td><td>2 Sep</td><td>Pembelian mesin sangrai dan penggiling Rp48.000.000, dibayar dari Bank BRI. Umur manfaat 5 tahun, tanpa nilai sisa.</td></tr><tr><td>4</td><td>3 Sep</td><td>Pesanan pembelian: 200 kg biji kopi hijau @Rp120.000 ke CV Tani Merapi (Rp24.000.000); 600 pouch @Rp2.500 dan 600 label @Rp500 ke UD Kemas Jaya (Rp1.800.000).</td></tr><tr><td>5</td><td>4 Sep</td><td>Seluruh barang pesanan diterima di Gudang Bahan Baku beserta faktur pemasok, jatuh tempo 30 hari.</td></tr><tr><td>6</td><td>7 Sep</td><td>Pelunasan utang UD Kemas Jaya Rp1.800.000 dan pembayaran sebagian utang CV Tani Merapi Rp14.000.000, keduanya lewat Bank BRI.</td></tr><tr><td>7</td><td>8 Sep</td><td>Penyusunan BOM Kopi Bubuk Arabika Merapi 250 g sesuai Tabel 5.3.</td></tr><tr><td>8</td><td>8 Sep</td><td>Perintah produksi 500 bungkus. Bahan baku dipindahkan ke Gudang Barang Dalam Proses.</td></tr><tr><td>9</td><td>10 Sep</td><td>Pembayaran upah tenaga kerja langsung produksi secara tunai Rp2.500.000.</td></tr><tr><td>10</td><td>11 Sep</td><td>Produksi 500 bungkus selesai dan masuk Gudang Barang Jadi. Upah Rp2.500.000 dibebankan ke harga pokok produksi.</td></tr><tr><td>11</td><td>14-15 Sep</td><td>Kedai Kopi Simpang Lima memesan 300 bungkus @Rp70.000 (Rp21.000.000) pada 14 Sep. Barang dikirim dan faktur terbit 15 Sep, jatuh tempo 30 hari.</td></tr><tr><td>12</td><td>21 Sep</td><td>Kedai Kopi Simpang Lima membayar sebagian tagihan Rp12.000.000 ke Bank BRI.</td></tr><tr><td>13</td><td>25 Sep</td><td>Pembayaran tagihan listrik dan gas pabrik Rp1.300.000 lewat Bank BRI.</td></tr><tr><td>14</td><td>30 Sep</td><td>Pencatatan penyusutan mesin September: Rp48.000.000 dibagi 60 bulan, Rp800.000.</td></tr></tbody></table></div></div>
+
+<h2 id="s6-3">6.3 Hasil yang Harus Diperoleh</h2>
+<ul class="def">
+<li>Seluruh dokumen transaksi berstatus Submitted.</li>
+<li>General Ledger memuat jurnal setiap transaksi, termasuk jurnal otomatis dari dokumen stok.</li>
+<li>Trial Balance seimbang dengan total debit dan kredit Rp512.700.000.</li>
+<li>Laba bersih September Rp5.700.000 dan total aset Rp315.700.000.</li>
+<li>Stock Balance akhir: 50 kg biji kopi, 100 pouch, 100 label, dan 200 bungkus kopi bubuk.</li>
+</ul>
+
+</section>
+<section class="chapter" id="bab7">
+<div class="ch-head v1"><div class="shp s1"></div><div class="shp s2"></div><div class="shp s3"></div><div class="ch-num">07</div><div class="ch-t"><span class="eyebrow">Bab 7</span><h1>Petunjuk Pengerjaan Soal</h1></div></div>
+
+<p class="lead">Bab ini membahas cara mengerjakan setiap nomor soal dengan fitur ERPNext yang tepat, lengkap dengan jurnal yang terbentuk. Ingat kembali aturan utamanya: dokumen baru memengaruhi buku besar dan stok setelah di-<b>Submit</b>.</p>
+
+<h2 id="s7-1">7.1 Transaksi Non-Stok dengan Journal Entry (No. 1, 2, 3, 9, 13, 14)</h2>
+<p>Transaksi yang tidak melibatkan barang, pemasok, atau pelanggan dicatat lewat <b>Accounting &gt; Journal Entry &gt; Add Journal Entry</b>. Isi <b>Posting Date</b>, lalu pada tabel <b>Accounting Entries</b> masukkan akun debit dan kredit. Total debit harus sama dengan total kredit sebelum dokumen bisa di-Submit.</p>
+<figure class="fig"><div class="glass frame"><img src="img/16_je_modal.jpg"></div><figcaption><span>Gambar 7.1</span> Journal Entry setoran modal (soal No. 1)</figcaption></figure>
+<div class="tblwrap"><div class="tcap"><span>Tabel 7.1</span> Jurnal untuk transaksi non-stok</div><div class="glass tbl"><table><thead><tr><th>No</th><th>Akun debit</th><th>Akun kredit</th><th>Jumlah</th><th>Entry Type</th></tr></thead><tbody><tr><td>1</td><td>1121 Bank BRI</td><td>3100 Modal Disetor</td><td>Rp300.000.000</td><td>Journal Entry</td></tr><tr><td>2</td><td>1111 Kas Kecil</td><td>1121 Bank BRI</td><td>Rp5.000.000</td><td>Journal Entry</td></tr><tr><td>3</td><td>1210 Mesin Produksi</td><td>1121 Bank BRI</td><td>Rp48.000.000</td><td>Journal Entry</td></tr><tr><td>9</td><td>5120 Biaya Tenaga Kerja Langsung</td><td>1111 Kas Kecil</td><td>Rp2.500.000</td><td>Journal Entry</td></tr><tr><td>13</td><td>5210 Beban Listrik dan Gas</td><td>1121 Bank BRI</td><td>Rp1.300.000</td><td>Journal Entry</td></tr><tr><td>14</td><td>5220 Beban Penyusutan</td><td>1220 Akumulasi Penyusutan Mesin</td><td>Rp800.000</td><td>Depreciation Entry</td></tr></tbody></table></div></div>
+<aside class="glass note warn"><div class="ico">!</div><div><b class="nt">Penyusutan wajib bertipe Depreciation Entry</b><p>ERPNext v16 menolak jurnal yang mengkredit akun Accumulated Depreciation bila <b>Entry Type</b> masih Journal Entry, dengan pesan <i>Journal Entry type should be set as Depreciation Entry for asset depreciation</i>. Ubah Entry Type menjadi <b>Depreciation Entry</b> pada soal No. 14.</p></div></aside>
+<figure class="fig"><div class="glass frame"><img src="img/28_je_susut.jpg"></div><figcaption><span>Gambar 7.2</span> Journal Entry penyusutan dengan Entry Type Depreciation Entry</figcaption></figure>
+
+<h2 id="s7-2">7.2 Pembelian Bahan Baku (No. 4 dan 5)</h2>
+<p>Alur pembelian di ERPNext terdiri atas tiga dokumen berantai: Purchase Order sebagai pesanan, Purchase Receipt sebagai bukti barang masuk gudang, dan Purchase Invoice sebagai tagihan pemasok.</p>
+<ol class="steps">
+<li>Buka <b>Buying &gt; Purchase Order &gt; Add</b>. Pilih Supplier CV Tani Merapi, tanggal 03-09-2026, <b>Required By</b> 04-09-2026, dan <b>Set Target Warehouse</b> Gudang Bahan Baku. Isi item RM-KOPI-ARB 200 Kg @Rp120.000, lalu Save dan Submit. Buat PO kedua untuk UD Kemas Jaya berisi pouch dan label dengan cara yang sama.</li>
+<li>Dari PO yang sudah di-Submit, klik <b>Create &gt; Purchase Receipt</b>. Centang <b>Edit Posting Date and Time</b>, isi 04-09-2026, periksa jumlah diterima, lalu Submit.</li>
+<li>Dari Purchase Receipt, klik <b>Create &gt; Purchase Invoice</b>. Isi Posting Date 04-09-2026, nomor faktur pemasok pada <b>Supplier Invoice No</b>, dan <b>Due Date</b> 04-10-2026, lalu Submit.</li>
+</ol>
+<div class="grid2">
+<figure class="fig small"><div class="glass frame"><img src="img/17_po.jpg"></div><figcaption><span>Gambar 7.3</span> Purchase Order ke CV Tani Merapi</figcaption></figure>
+<figure class="fig small"><div class="glass frame"><img src="img/18_pr.jpg"></div><figcaption><span>Gambar 7.4</span> Purchase Receipt dari PO</figcaption></figure>
+</div>
+<figure class="fig"><div class="glass frame"><img src="img/29_gl_pr.jpg"></div><figcaption><span>Gambar 7.5</span> Jurnal otomatis Purchase Receipt: persediaan bahan baku bertambah</figcaption></figure>
+<p>Purchase Receipt mendebit Persediaan Bahan Baku dan mengkredit akun perantara Barang Diterima Belum Ditagih. Purchase Invoice kemudian memindahkan saldo perantara itu ke Utang Usaha. Akun perantara ini bersaldo nol bila semua barang yang diterima sudah ditagih, sehingga mudah dipakai sebagai alat kontrol.</p>
+<div class="tblwrap"><div class="tcap"><span>Tabel 7.2</span> Jurnal otomatis alur pembelian</div><div class="glass tbl"><table><thead><tr><th>Dokumen</th><th>Debit</th><th>Kredit</th><th>Jumlah</th></tr></thead><tbody><tr><td>Purchase Receipt (2 dokumen)</td><td>1141 Persediaan Bahan Baku</td><td>2120 Barang Diterima Belum Ditagih</td><td>Rp25.800.000</td></tr><tr><td>Purchase Invoice (2 dokumen)</td><td>2120 Barang Diterima Belum Ditagih</td><td>2110 Utang Usaha</td><td>Rp25.800.000</td></tr></tbody></table></div></div>
+<figure class="fig"><div class="glass frame"><img src="img/19_pi.jpg"></div><figcaption><span>Gambar 7.6</span> Purchase Invoice CV Tani Merapi berstatus Partly Paid sesudah pembayaran</figcaption></figure>
+
+<h2 id="s7-3">7.3 Pembayaran ke Pemasok (No. 6)</h2>
+<p>Buka Purchase Invoice yang akan dibayar, klik <b>Create &gt; Payment</b>. ERPNext membuat Payment Entry dengan <b>Payment Type</b> Pay dan pihak pemasok terisi. Isi <b>Posting Date</b> 07-09-2026, <b>Account Paid From</b> 1121 Bank BRI, dan <b>Paid Amount</b>. Untuk CV Tani Merapi isi Rp14.000.000, lalu pastikan <b>Allocated</b> pada tabel referensi juga Rp14.000.000. Transfer bank mewajibkan <b>Reference No</b> dan <b>Reference Date</b>. Submit dokumen.</p>
+<figure class="fig"><div class="glass frame"><img src="img/20_pay_supplier.jpg"></div><figcaption><span>Gambar 7.7</span> Payment Entry pembayaran sebagian ke CV Tani Merapi</figcaption></figure>
+<p>Jurnalnya mendebit Utang Usaha dan mengkredit Bank BRI. Sisa utang CV Tani Merapi Rp10.000.000 tetap tercatat dan status fakturnya berubah menjadi Partly Paid.</p>
+
+<h2 id="s7-4">7.4 Produksi dengan Work Order (No. 8 dan 10)</h2>
+<p>BOM dari soal No. 7 sudah dibuat di Subbab 5.4. Produksi dijalankan lewat tiga langkah.</p>
+<ol class="steps">
+<li>Buka <b>Manufacturing &gt; Work Order &gt; Add</b>. Pilih <b>Item To Manufacture</b> FG-KOPI-250, BOM terisi otomatis, isi <b>Qty To Manufacture</b> 500. Gudang WIP dan gudang tujuan terisi dari Manufacturing Settings. Save dan Submit.</li>
+<li>Klik <b>Start</b> (atau <b>Transfer Material</b>) pada Work Order. ERPNext menyiapkan Stock Entry jenis <b>Material Transfer for Manufacture</b> berisi 150 kg biji kopi, 500 pouch, dan 500 label. Ubah tanggal ke 08-09-2026, lalu Submit.</li>
+<li>Pada 11-09-2026 klik <b>Finish</b> pada Work Order dengan jumlah 500. Stock Entry jenis <b>Manufacture</b> terbentuk. Buka tab <b>Additional Costs</b>, tambahkan baris dengan <b>Expense Account</b> 5120 Biaya Tenaga Kerja Langsung, deskripsi upah, dan <b>Amount</b> Rp2.500.000. Submit.</li>
+</ol>
+<figure class="fig"><div class="glass frame"><img src="img/21_wo.jpg"></div><figcaption><span>Gambar 7.8</span> Work Order 500 bungkus berstatus Completed</figcaption></figure>
+<figure class="fig"><div class="glass frame"><img src="img/22_se_transfer.jpg"></div><figcaption><span>Gambar 7.9</span> Stock Entry Material Transfer for Manufacture</figcaption></figure>
+<div class="grid2">
+<figure class="fig small"><div class="glass frame"><img src="img/23_se_manuf.jpg"></div><figcaption><span>Gambar 7.10</span> Stock Entry Manufacture: bahan keluar, barang jadi masuk</figcaption></figure>
+<figure class="fig small"><div class="glass frame"><img src="img/23b_se_manuf_biaya.jpg"></div><figcaption><span>Gambar 7.11</span> Tab Additional Costs berisi upah Rp2.500.000</figcaption></figure>
+</div>
+<p>Biaya tambahan inilah yang membuat nilai barang jadi tidak hanya berisi bahan. Nilai 500 bungkus menjadi Rp19.500.000 bahan ditambah Rp2.500.000 upah, yaitu Rp22.000.000 atau Rp44.000 per bungkus. Akun 5120 bertipe <b>Expenses Included In Valuation</b>, sehingga upah yang semula didebit saat dibayar (soal No. 9) dikredit kembali saat produksi dan saldonya nol. Biaya upah berpindah ke persediaan, lalu baru menjadi beban saat barang terjual.</p>
+<figure class="fig"><div class="glass frame"><img src="img/30_gl_manuf.jpg"></div><figcaption><span>Gambar 7.12</span> Jurnal otomatis Stock Entry Manufacture</figcaption></figure>
+<div class="tblwrap"><div class="tcap"><span>Tabel 7.3</span> Jurnal otomatis alur produksi</div><div class="glass tbl"><table><thead><tr><th>Dokumen</th><th>Debit</th><th>Kredit</th><th>Jumlah</th></tr></thead><tbody><tr><td>Material Transfer for Manufacture</td><td>1142 Persediaan Barang Dalam Proses</td><td>1141 Persediaan Bahan Baku</td><td>Rp19.500.000</td></tr><tr><td>Manufacture</td><td>1143 Persediaan Barang Jadi</td><td>1142 Persediaan Barang Dalam Proses</td><td>Rp19.500.000</td></tr><tr><td>Manufacture (biaya tambahan)</td><td>1143 Persediaan Barang Jadi</td><td>5120 Biaya Tenaga Kerja Langsung</td><td>Rp2.500.000</td></tr></tbody></table></div></div>
+
+<h2 id="s7-5">7.5 Penjualan (No. 11)</h2>
+<ol class="steps">
+<li>Buka <b>Selling &gt; Sales Order &gt; Add</b>. Pilih Customer Kedai Kopi Simpang Lima, tanggal 14-09-2026, <b>Delivery Date</b> 15-09-2026, item FG-KOPI-250 sebanyak 300 @Rp70.000, gudang Barang Jadi. Submit.</li>
+<li>Dari Sales Order klik <b>Create &gt; Delivery Note</b>, ubah tanggal ke 15-09-2026, Submit. Langkah ini mengeluarkan barang dari gudang dan mengakui harga pokok penjualan.</li>
+<li>Dari Delivery Note klik <b>Create &gt; Sales Invoice</b>, tanggal 15-09-2026, <b>Payment Due Date</b> 15-10-2026, Submit. Langkah ini mengakui piutang dan pendapatan.</li>
+</ol>
+<div class="grid2">
+<figure class="fig small"><div class="glass frame"><img src="img/24_so.jpg"></div><figcaption><span>Gambar 7.13</span> Sales Order 300 bungkus</figcaption></figure>
+<figure class="fig small"><div class="glass frame"><img src="img/25_dn.jpg"></div><figcaption><span>Gambar 7.14</span> Delivery Note dari Sales Order</figcaption></figure>
+</div>
+<figure class="fig"><div class="glass frame"><img src="img/26_si.jpg"></div><figcaption><span>Gambar 7.15</span> Sales Invoice berstatus Partly Paid sesudah pelunasan sebagian</figcaption></figure>
+<div class="grid2">
+<figure class="fig small"><div class="glass frame"><img src="img/31_gl_dn.jpg"></div><figcaption><span>Gambar 7.16</span> Jurnal Delivery Note: HPP Rp13.200.000</figcaption></figure>
+<figure class="fig small"><div class="glass frame"><img src="img/32_gl_si.jpg"></div><figcaption><span>Gambar 7.17</span> Jurnal Sales Invoice: piutang dan penjualan</figcaption></figure>
+</div>
+<p>Harga pokok penjualan dihitung otomatis dari nilai persediaan barang jadi: 300 bungkus dikali Rp44.000 sama dengan Rp13.200.000. Pada alur ini HPP diakui oleh Delivery Note, sementara pendapatan diakui oleh Sales Invoice.</p>
+
+<h2 id="s7-6">7.6 Penerimaan dari Pelanggan (No. 12)</h2>
+<p>Buka Sales Invoice, klik <b>Create &gt; Payment</b>. Payment Entry bertipe Receive terbentuk. Isi tanggal 21-09-2026, <b>Account Paid To</b> Bank BRI, <b>Paid Amount</b> Rp12.000.000, alokasi Rp12.000.000, serta nomor dan tanggal referensi transfer. Submit. Jurnalnya mendebit Bank BRI dan mengkredit Piutang Usaha, menyisakan piutang Rp9.000.000.</p>
+<figure class="fig"><div class="glass frame"><img src="img/27_rec.jpg"></div><figcaption><span>Gambar 7.18</span> Payment Entry penerimaan dari Kedai Kopi Simpang Lima</figcaption></figure>
+
+</section>
+<section class="chapter" id="bab8">
+<div class="ch-head v2"><div class="shp s1"></div><div class="shp s2"></div><div class="shp s3"></div><div class="ch-num">08</div><div class="ch-t"><span class="eyebrow">Bab 8</span><h1>Memeriksa Hasil Pengerjaan</h1></div></div>
+
+<p class="lead">Pekerjaan dianggap benar bila laporan ERPNext menunjukkan angka yang sama dengan hitungan manual. Seluruh laporan di bawah dibuka dari <b>Accounting &gt; Reports</b> atau lewat kotak Search, dengan filter Company PT Kopi Merapi Nusantara dan periode 01-09-2026 sampai 30-09-2026.</p>
+
+<h2 id="s8-1">8.1 General Ledger</h2>
+<p>General Ledger menampilkan seluruh jurnal secara kronologis. Pilih <b>Group By</b> Group by Voucher (Consolidated) supaya jurnal tiap dokumen terkumpul. Filter <b>Voucher No</b> berguna untuk melihat jurnal satu dokumen saja, seperti pada gambar-gambar di Bab 7.</p>
+<figure class="fig"><div class="glass frame"><img src="img/33_gl.jpg"></div><figcaption><span>Gambar 8.1</span> General Ledger September 2026</figcaption></figure>
+
+<h2 id="s8-2">8.2 Trial Balance</h2>
+<figure class="fig"><div class="glass frame"><img src="img/34_tb.jpg"></div><figcaption><span>Gambar 8.2</span> Trial Balance PT Kopi Merapi Nusantara, total debit = total kredit</figcaption></figure>
+<div class="tblwrap"><div class="tcap"><span>Tabel 8.1</span> Saldo akhir Trial Balance 30 September 2026</div><div class="glass tbl"><table><thead><tr><th>Akun</th><th>Debit</th><th>Kredit</th></tr></thead><tbody><tr><td>1111 Kas Kecil</td><td>2.500.000</td><td></td></tr><tr><td>1121 Bank BRI</td><td>241.900.000</td><td></td></tr><tr><td>1130 Piutang Usaha</td><td>9.000.000</td><td></td></tr><tr><td>1141 Persediaan Bahan Baku</td><td>6.300.000</td><td></td></tr><tr><td>1143 Persediaan Barang Jadi</td><td>8.800.000</td><td></td></tr><tr><td>1210 Mesin Produksi</td><td>48.000.000</td><td></td></tr><tr><td>1220 Akumulasi Penyusutan Mesin</td><td></td><td>800.000</td></tr><tr><td>2110 Utang Usaha</td><td></td><td>10.000.000</td></tr><tr><td>3100 Modal Disetor</td><td></td><td>300.000.000</td></tr><tr><td>4100 Penjualan Kopi Bubuk</td><td></td><td>21.000.000</td></tr><tr><td>5110 Harga Pokok Penjualan</td><td>13.200.000</td><td></td></tr><tr><td>5210 Beban Listrik dan Gas</td><td>1.300.000</td><td></td></tr><tr><td>5220 Beban Penyusutan</td><td>800.000</td><td></td></tr><tr><td><b>Jumlah</b></td><td><b>331.800.000</b></td><td><b>331.800.000</b></td></tr></tbody></table></div></div>
+<p>Total mutasi debit dan kredit selama September, yang tampil pada kolom Debit dan Credit laporan, sama-sama Rp512.700.000. Akun 1142 Barang Dalam Proses, 2120 Barang Diterima Belum Ditagih, dan 5120 Biaya Tenaga Kerja Langsung bersaldo nol karena seluruh bahan sudah selesai diproduksi, semua barang sudah ditagih pemasok, dan upah sudah dibebankan ke persediaan.</p>
+
+<h2 id="s8-3">8.3 Profit and Loss Statement</h2>
+<figure class="fig"><div class="glass frame"><img src="img/35_pl.jpg"></div><figcaption><span>Gambar 8.3</span> Profit and Loss Statement September 2026</figcaption></figure>
+<div class="tblwrap"><div class="tcap"><span>Tabel 8.2</span> Laporan laba rugi September 2026</div><div class="glass tbl"><table><thead><tr><th>Pos</th><th>Jumlah (Rp)</th></tr></thead><tbody><tr><td>Penjualan Kopi Bubuk</td><td>21.000.000</td></tr><tr><td>Harga Pokok Penjualan</td><td>(13.200.000)</td></tr><tr><td><b>Laba kotor</b></td><td><b>7.800.000</b></td></tr><tr><td>Beban Listrik dan Gas</td><td>(1.300.000)</td></tr><tr><td>Beban Penyusutan</td><td>(800.000)</td></tr><tr><td><b>Laba bersih</b></td><td><b>5.700.000</b></td></tr></tbody></table></div></div>
+
+<h2 id="s8-4">8.4 Balance Sheet</h2>
+<figure class="fig"><div class="glass frame"><img src="img/36_bs.jpg"></div><figcaption><span>Gambar 8.4</span> Balance Sheet per 30 September 2026</figcaption></figure>
+<p>Total aset Rp315.700.000 sama dengan liabilitas Rp10.000.000 ditambah ekuitas Rp300.000.000 dan laba berjalan Rp5.700.000. ERPNext menampilkan laba yang belum ditutup ke Laba Ditahan sebagai <b>Provisional Profit / Loss</b>.</p>
+
+<h2 id="s8-5">8.5 Stock Balance</h2>
+<p>Laporan <b>Stock &gt; Stock Balance</b> di versi 16 berjalan sebagai laporan latar belakang. Isi filter, klik <b>Generate New Report</b>, tunggu beberapa detik, lalu muat ulang halaman.</p>
+<figure class="fig"><div class="glass frame"><img src="img/37_stock_balance.jpg"></div><figcaption><span>Gambar 8.5</span> Stock Balance: sisa persediaan per barang dan gudang</figcaption></figure>
+<div class="tblwrap"><div class="tcap"><span>Tabel 8.3</span> Sisa persediaan 30 September 2026</div><div class="glass tbl"><table><thead><tr><th>Barang</th><th>Gudang</th><th>Qty</th><th>Nilai (Rp)</th></tr></thead><tbody><tr><td>Biji Kopi Hijau Arabika</td><td>Bahan Baku</td><td>50 kg</td><td>6.000.000</td></tr><tr><td>Kemasan Pouch Zipper 250 g</td><td>Bahan Baku</td><td>100 pcs</td><td>250.000</td></tr><tr><td>Label Stiker Produk</td><td>Bahan Baku</td><td>100 pcs</td><td>50.000</td></tr><tr><td>Kopi Bubuk Arabika Merapi 250 g</td><td>Barang Jadi</td><td>200 pcs</td><td>8.800.000</td></tr><tr><td><b>Jumlah</b></td><td></td><td></td><td><b>15.100.000</b></td></tr></tbody></table></div></div>
+<p>Nilai persediaan Rp15.100.000 sama persis dengan saldo grup akun 1140 Persediaan di Trial Balance. Kecocokan ini membuktikan bahwa <i>perpetual inventory</i> bekerja dengan benar.</p>
+
+</section>
+<section class="chapter" id="bab9">
+<div class="ch-head v0"><div class="shp s1"></div><div class="shp s2"></div><div class="shp s3"></div><div class="ch-num">09</div><div class="ch-t"><span class="eyebrow">Bab 9</span><h1>Skema Pelaksanaan Pengerjaan</h1></div></div>
+
+<p class="lead">Skema berikut merangkum seluruh pengerjaan dalam satu alur. Setiap kotak adalah dokumen ERPNext, dan panah menunjukkan dokumen yang dibuat dari dokumen sebelumnya lewat tombol Create.</p>
+<div class="skema"><div class="lane glass"><div class="ln"><b>1</b>Persiapan</div><div class="flow"><span class="chip">Setup Wizard</span><span class="arr">→</span><span class="chip">COA Importer</span><span class="arr">→</span><span class="chip">Company &amp; Gudang</span><span class="arr">→</span><span class="chip">Item, Supplier, Customer</span></div></div><div class="lane glass"><div class="ln"><b>2</b>Pengadaan</div><div class="flow"><span class="chip">Purchase Order</span><span class="arr">→</span><span class="chip">Purchase Receipt</span><span class="arr">→</span><span class="chip">Purchase Invoice</span><span class="arr">→</span><span class="chip">Payment Entry (Pay)</span></div></div><div class="lane glass"><div class="ln"><b>3</b>Produksi</div><div class="flow"><span class="chip">BOM</span><span class="arr">→</span><span class="chip">Work Order</span><span class="arr">→</span><span class="chip">Stock Entry: Transfer</span><span class="arr">→</span><span class="chip">Stock Entry: Manufacture</span></div></div><div class="lane glass"><div class="ln"><b>4</b>Penjualan</div><div class="flow"><span class="chip">Sales Order</span><span class="arr">→</span><span class="chip">Delivery Note</span><span class="arr">→</span><span class="chip">Sales Invoice</span><span class="arr">→</span><span class="chip">Payment Entry (Receive)</span></div></div><div class="lane glass"><div class="ln"><b>5</b>Pelaporan</div><div class="flow"><span class="chip">General Ledger</span><span class="arr">→</span><span class="chip">Trial Balance</span><span class="arr">→</span><span class="chip">Profit and Loss</span><span class="arr">→</span><span class="chip">Balance Sheet</span></div></div><div class="skema-note">Journal Entry dipakai di luar alur dokumen untuk modal, kas kecil, mesin, upah, listrik, dan penyusutan (Depreciation Entry).</div></div>
+<h2 id="s9-1">9.1 Daftar Langkah dan Dokumen</h2>
+<div class="tblwrap"><div class="tcap"><span>Tabel 9.1</span> Ringkasan langkah, dokumen, dan nomor dokumen hasil pengerjaan</div><div class="glass tbl"><table><thead><tr><th>Tahap</th><th>Soal</th><th>Dokumen ERPNext</th><th>Nomor dokumen</th></tr></thead><tbody><tr><td>Persiapan</td><td>-</td><td>Setup Wizard, Chart of Accounts Importer, Company, Warehouse</td><td>-</td></tr><tr><td>Data master</td><td>7</td><td>Item, Supplier, Customer, BOM</td><td>BOM-FG-KOPI-250-001</td></tr><tr><td>Modal dan aset</td><td>1, 2, 3</td><td>Journal Entry</td><td>ACC-JV-2026-00001 s.d. 00003</td></tr><tr><td>Pengadaan</td><td>4</td><td>Purchase Order</td><td>PUR-ORD-2026-00001, 00002</td></tr><tr><td>Pengadaan</td><td>5</td><td>Purchase Receipt, Purchase Invoice</td><td>MAT-PRE-2026-00001, 00002; ACC-PINV-2026-00001, 00002</td></tr><tr><td>Pengadaan</td><td>6</td><td>Payment Entry (Pay)</td><td>ACC-PAY-2026-00001, 00002</td></tr><tr><td>Produksi</td><td>8</td><td>Work Order, Stock Entry (Material Transfer)</td><td>MFG-WO-2026-00001; MAT-STE-2026-00001</td></tr><tr><td>Produksi</td><td>9</td><td>Journal Entry upah</td><td>ACC-JV-2026-00004</td></tr><tr><td>Produksi</td><td>10</td><td>Stock Entry (Manufacture) + Additional Costs</td><td>MAT-STE-2026-00002</td></tr><tr><td>Penjualan</td><td>11</td><td>Sales Order, Delivery Note, Sales Invoice</td><td>SAL-ORD-2026-00001; MAT-DN-2026-00001; ACC-SINV-2026-00001</td></tr><tr><td>Penjualan</td><td>12</td><td>Payment Entry (Receive)</td><td>ACC-PAY-2026-00003</td></tr><tr><td>Penutupan</td><td>13, 14</td><td>Journal Entry, Depreciation Entry</td><td>ACC-JV-2026-00005, 00006</td></tr><tr><td>Pelaporan</td><td>-</td><td>General Ledger, Trial Balance, P&amp;L, Balance Sheet, Stock Balance</td><td>-</td></tr></tbody></table></div></div>
+<h2 id="s9-2">9.2 Daftar Periksa sebelum Mengumpulkan</h2>
+<ul class="check">
+<li>Singkatan perusahaan KMN muncul di semua nama akun dan gudang.</li>
+<li>COA hasil impor terpasang dan akun bawaan Company sudah terisi.</li>
+<li>Semua dokumen transaksi berstatus Submitted, tidak ada yang tertinggal sebagai Draft.</li>
+<li>Posting Date setiap dokumen sesuai tanggal soal di bulan September 2026.</li>
+<li>Work Order berstatus Completed dengan 500 bungkus diproduksi.</li>
+<li>Trial Balance seimbang, laba bersih Rp5.700.000, total aset Rp315.700.000.</li>
+<li>Nilai Stock Balance Rp15.100.000 sama dengan saldo akun persediaan.</li>
+</ul>
+
+</section>
+<section class="chapter" id="bab10">
+<div class="ch-head v1"><div class="shp s1"></div><div class="shp s2"></div><div class="shp s3"></div><div class="ch-num">10</div><div class="ch-t"><span class="eyebrow">Bab 10</span><h1>Pemecahan Masalah</h1></div></div>
+
+<p class="lead">Tabel berikut memuat kendala yang lazim ditemui, termasuk pesan galat yang benar-benar muncul selama studi kasus buku ini dikerjakan di ERPNext v16.</p>
+<div class="tblwrap"><div class="tcap"><span>Tabel 10.1</span> Masalah dan solusinya</div><div class="glass tbl"><table><thead><tr><th>Gejala atau pesan</th><th>Penyebab</th><th>Solusi</th></tr></thead><tbody><tr><td>Docker Desktop tidak mau menyala</td><td>WSL 2 atau virtualisasi belum aktif</td><td>Jalankan <code>wsl --update</code>, aktifkan virtualisasi di BIOS, mulai ulang komputer</td></tr><tr><td>localhost:8080 tidak terbuka atau galat 502</td><td>Situs masih dibuat oleh create-site</td><td>Pantau log create-site, tunggu sampai selesai, lalu muat ulang</td></tr><tr><td><i>port is already allocated</i></td><td>Port 8080 dipakai aplikasi lain</td><td>Ubah pemetaan port di pwd.yml menjadi 8081:8080, akses localhost:8081</td></tr><tr><td>Singkatan berubah menjadi PKMN</td><td>Diisi otomatis dari nama perusahaan</td><td>Ketik ulang KMN di langkah 4 Setup Wizard sebelum Complete Setup</td></tr><tr><td>COA ditolak importer</td><td>Akun Cash/Bank/Stock bukan akun grup, atau tipe akun wajib tidak ada</td><td>Jadikan 1110, 1120, 1140 akun grup; lengkapi tipe Payable, Receivable, COGS, Stock Adjustment, Fixed Asset, Depreciation</td></tr><tr><td><i>Journal Entry type should be set as Depreciation Entry</i></td><td>Jurnal penyusutan memakai Entry Type biasa</td><td>Ganti Entry Type menjadi Depreciation Entry</td></tr><tr><td><i>Can't change the valuation method</i></td><td>Metode penilaian diubah setelah ada transaksi stok</td><td>Tentukan FIFO atau Moving Average sebelum transaksi pertama</td></tr><tr><td>Tanggal dokumen stok tidak bisa diubah</td><td>Opsi tanggal manual belum aktif</td><td>Centang Edit Posting Date and Time</td></tr><tr><td>Nilai barang jadi hanya berisi bahan</td><td>Upah tidak dimasukkan ke Additional Costs</td><td>Cancel Stock Entry Manufacture, Amend, isi Additional Costs, Submit ulang</td></tr><tr><td>Laporan P&amp;L menampilkan <i>From Date and To Date are mandatory</i></td><td>Filter tanggal kosong</td><td>Isi Start Date dan End Date pada filter laporan</td></tr><tr><td>Stock Balance kosong</td><td>Laporan berjalan di latar belakang</td><td>Klik Generate New Report, tunggu, muat ulang</td></tr></tbody></table></div></div>
+<h2 id="s10-1">10.1 Membatalkan dan Mengoreksi Dokumen</h2>
+<p>Dokumen yang sudah Submitted tidak bisa diedit langsung. Klik <b>Cancel</b>, ERPNext membuat jurnal balik sehingga pengaruhnya hilang. Klik <b>Amend</b> untuk membuat salinan dokumen dengan akhiran -1, perbaiki isiannya, lalu Submit ulang. Pembatalan harus mengikuti urutan terbalik dari rantai dokumen. Sales Invoice yang sudah dibayar, misalnya, hanya bisa dibatalkan sesudah Payment Entry-nya dibatalkan lebih dulu.</p>
+
+</section>
+
+<section class="chapter" id="penutup">
+<div class="ch-head v1"><div class="shp s1"></div><div class="shp s2"></div><div class="shp s3"></div><div class="ch-num">&#9632;</div><div class="ch-t"><span class="eyebrow">Akhir Buku</span><h1>Penutup</h1></div></div>
+<h2 id="p-1">Kesimpulan</h2>
+<p>ERPNext memperlihatkan bagaimana satu transaksi bisnis mengalir menjadi angka akuntansi tanpa perlu disalin ulang. Pada studi kasus PT Kopi Merapi Nusantara, empat belas transaksi September 2026 cukup dicatat lewat dokumen operasional, dan sistem membentuk sendiri jurnal persediaan, harga pokok produksi, harga pokok penjualan, piutang, serta utang. Hasilnya dibuktikan oleh Trial Balance yang seimbang, laba bersih Rp5.700.000, total aset Rp315.700.000, dan nilai persediaan yang sama persis dengan saldo akun persediaan.</p>
+<p>Kunci keberhasilan pengerjaan terletak pada persiapan: singkatan perusahaan yang benar, COA yang diimpor sebelum transaksi, akun bawaan yang lengkap, gudang yang terhubung ke akun persediaan, serta metode penilaian persediaan yang ditetapkan sejak awal.</p>
+<h2 id="p-2">Saran</h2>
+<p>Pembaca disarankan mengulang studi kasus ini dengan variasi, misalnya menambah biaya <i>overhead</i> pabrik ke Additional Costs, memakai Workstation dan Operation pada BOM, atau mencoba retur penjualan lewat Credit Note. Latihan semacam itu memperdalam pemahaman tentang hubungan antara dokumen operasional dan jurnal akuntansi.</p>
+<h2 id="p-3">Daftar Pustaka</h2>
+<div class="glass refs"><p class='ref'>Docker Inc. (2026). <i>Install Docker Desktop on Windows</i>. Docker Documentation. https://docs.docker.com/desktop/setup/install/windows-install/</p><p class='ref'>Frappe Technologies. (2026a). <i>ERPNext documentation</i> (Version 16). https://docs.erpnext.com</p><p class='ref'>Frappe Technologies. (2026b). <i>frappe_docker: Docker images for production and development setups of the Frappe framework and ERPNext</i> [Repositori GitHub]. https://github.com/frappe/frappe_docker</p><p class='ref'>Frappe Technologies. (2026c). <i>ERPNext: Free and open source enterprise resource planning</i> [Repositori GitHub]. https://github.com/frappe/erpnext</p><p class='ref'>Monk, E. F., &amp; Wagner, B. J. (2013). <i>Concepts in enterprise resource planning</i> (4th ed.). Course Technology, Cengage Learning.</p><p class='ref'>Romney, M. B., &amp; Steinbart, P. J. (2021). <i>Accounting information systems</i> (15th ed.). Pearson.</p></div>
+<h2 id="p-4">Tentang Penulis</h2>
+<div class="authors2">
+<div class="glass au2"><b>Theresya Chesilya</b><span>Mahasiswa Program Studi Akuntansi, Fakultas Ekonomika dan Bisnis, Universitas Diponegoro, angkatan 2022 (NIM 12030122130157). Menyusun e-book ini sebagai tugas pengganti UTS mata kuliah Enterprise Resource Planning.</span></div>
+<div class="glass au2"><b>Dr. Totok Dewayanto, S.E., M.Si., Akt., CA.</b><span>Dosen Program Studi Akuntansi, Fakultas Ekonomika dan Bisnis, Universitas Diponegoro, pengampu mata kuliah Enterprise Resource Planning.</span></div>
+</div>
+</section>
+</body></html>
