@@ -15,8 +15,6 @@ Studi Kasus PT Kopi Merapi Nusantara
 
 📘 **[Panduan Praktis ERPNext_Theresya Chesilya.pdf](Panduan%20Praktis%20ERPNext_Theresya%20Chesilya.pdf)** (48 halaman)
 
-Versi web: folder [`ebook/`](ebook/index.html).
-
 ## Isi Buku
 
 1. Mengenal ERP dan ERPNext
